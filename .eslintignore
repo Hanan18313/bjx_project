@@ -1,0 +1,6 @@
+node_modules
+/dist
+/public
+/src/mock
+index.html
+/*.json

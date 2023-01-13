@@ -1,0 +1,11 @@
+/dist/*
+.local
+.output.js
+/node_modules/**
+
+**/*.svg
+**/*.sh
+
+src/**/*.scss
+src/**/*.css
+/*不知为啥prettier自动修复完缩进后，stylelint插件会说不对，所以先让prettier不格式化scss和css问件忽略*/
