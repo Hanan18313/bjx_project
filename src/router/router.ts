@@ -1,7 +1,9 @@
 import { RouteRecordRaw } from 'vue-router';
 
-const requireModules = import.meta.glob('@/views/*.vue');
+const requireModules = import.meta.glob('@/views/**');
+console.log(requireModules);
 const modules: Array<RouteRecordRaw> = Object.keys(requireModules).map((filePath: string) => {
+  console.log(filePath);
   const match: RegExpMatchArray | any = filePath.match(/[\w]+(?=.vue)/);
   return {
     name: match[0],

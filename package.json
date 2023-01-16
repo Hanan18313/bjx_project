@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "eslint --ext .js,.vue,.ts,.jsx --ignore-path .gitignore --fix src && vite --port=3005",
+    "start": "eslint --ext .js,.vue,.ts,.jsx --ignore-path .gitignore --fix src && vite --port=3005",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
     "eslint": "eslint --ext .js,.vue,.ts,.jsx --ignore-path .gitignore --fix src",
