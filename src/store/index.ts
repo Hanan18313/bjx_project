@@ -2,27 +2,21 @@ import { InjectionKey } from 'vue';
 import { createStore, createLogger, Store } from 'vuex';
 import { IRootState } from './types';
 
-const debug = process.env.NODE_ENV === 'development';
+const debug = import.meta.env.MODE === 'development';
 const plugins = debug ? [createLogger({})] : [];
-
 const modules: Record<string, any> = {};
-// const requireModules = require.context('./modules/', true, /index\.(js|ts)$/iu);
-const requireModules = import.meta.glob(`./modules/**/.${/index\.(js|ts)$/iu}`);
+
+const requireModules = import.meta.globEager('@/store/modules/**/index.ts');
+console.log(requireModules);
 Object.keys(requireModules).forEach((filePath: string) => {
-  const match: RegExpMatchArray | any = filePath.match(/[\w]+(?=.vue)/);
-  modules[match[0]] = {
+  const path = filePath.toLowerCase().replace(/^\/src\/store\/modules\//g, '');
+  const name = path.replace(/\.\/|\/index.(js|ts)/g, '');
+  const modular: any = requireModules[filePath];
+  modules[name] = {
     namespaced: true,
-    ...requireModules[filePath],
+    ...modular[name],
   };
 });
-// requireModules.keys().forEach((filePath: string) => {
-//   const modular = requireModules(filePath);
-//   const name = filePath.replace(/\.\/|\/index.(js|ts)/g, '');
-//   modules[name] = {
-//     namespaced: true,
-//     ...modular[name],
-//   };
-// });
 
 export const key: InjectionKey<Store<IRootState>> = Symbol('');
 

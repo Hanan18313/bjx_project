@@ -12,7 +12,7 @@
     "lint:style": "stylelint \"src/*.{css,scss}\"",
     "fix:style": "stylelint --fix \"src/*.{css,scss}\"",
     "commit:comment": "引导设置规范化的提交信息",
-    "commit": "git-cz",
+    "commit": "git add . && git-cz",
     "lint-staged": "npx lint-staged",
     "prepare": "husky install"
   },
@@ -48,11 +48,13 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
+    "@types/mockjs": "^1.0.7",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
     "@vitejs/plugin-legacy": "^3.0.1",
     "@vitejs/plugin-vue": "^4.0.0",
     "commitizen": "^4.2.6",
+    "commitlint-config-git-commit-emoji": "^1.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.31.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -71,6 +73,7 @@
     "stylelint-config-standard": "^29.0.0",
     "typescript": "^4.9.3",
     "vite": "^4.0.0",
+    "vite-plugin-mock": "^2.9.6",
     "vite-plugin-progress": "^0.0.6",
     "vue-tsc": "^1.0.11"
   },
