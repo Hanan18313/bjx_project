@@ -7,7 +7,6 @@ const plugins = debug ? [createLogger({})] : [];
 const modules: Record<string, any> = {};
 
 const requireModules = import.meta.globEager('@/store/modules/**/index.ts');
-console.log(requireModules);
 Object.keys(requireModules).forEach((filePath: string) => {
   const path = filePath.toLowerCase().replace(/^\/src\/store\/modules\//g, '');
   const name = path.replace(/\.\/|\/index.(js|ts)/g, '');

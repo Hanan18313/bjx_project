@@ -2,6 +2,7 @@ module.exports = {
   extends: ['stylelint-config-standard', 'stylelint-config-rational-order', 'stylelint-config-prettier'],
   defaultSeverity: 'error',
   plugins: ['stylelint-order'],
+  customSyntax: "postcss-less", // stylelint --fix less
   rules: {
     indentation: 4,
     'at-rule-no-unknown': [
