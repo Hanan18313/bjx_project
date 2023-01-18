@@ -22,5 +22,13 @@ export default defineConfig({
     }),
     progress(),
   ],
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+        charset: false,
+      },
+    },
+  },
   server: {},
 });
