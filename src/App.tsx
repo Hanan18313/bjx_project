@@ -14,7 +14,9 @@ export default defineComponent({
     return () => (
       <>
         {isError.value ? (
-          <div>something is wrong!!</div>
+          <div>
+            <a-result status="error" title="Someting Is Wrong" sub-title="Please check and modify the following information before resubmitting."></a-result>
+          </div>
         ) : (
           <ConfigProvider theme-vars={{ blue: '#6476FF', navBarArrowSize: '1.4rem' }}>
             <Suspense onFallback={() => <div> loading...</div>}>

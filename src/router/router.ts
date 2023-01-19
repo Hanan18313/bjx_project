@@ -11,7 +11,7 @@ const modules: Array<RouteRecordRaw> = Object.keys(requireModules).map((filePath
     component: requireModules[filePath],
   };
 });
-
+console.log(modules);
 const routers: Array<RouteRecordRaw> = [
   {
     path: '/',
