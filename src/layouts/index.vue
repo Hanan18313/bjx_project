@@ -17,9 +17,7 @@ const state = reactive<State>({
 });
 
 store.dispatch('common/getSystemMenu', {});
-
 const menu = computed(() => store.state.common.menu);
-console.log(menu);
 </script>
 <template>
   <Layout id="components-layout-demo-custom-trigger">
@@ -49,9 +47,7 @@ console.log(menu);
       </LayoutHeader>
       <LayoutContent class="layout-right-content">
         <div class="layout-content-body">
-          <KeepAlive>
-            <RouterView></RouterView>
-          </KeepAlive>
+          <RouterView></RouterView>
         </div>
       </LayoutContent>
     </Layout>
