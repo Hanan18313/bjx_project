@@ -15,7 +15,7 @@
     "lint:style": "stylelint \"src/*.{css,less}\"",
     "fix:style": "stylelint --fix \"src/*.{css,less}\"",
     "commit:comment": "引导设置规范化的提交信息",
-    "commit": "git add . && git-cz && git push",
+    "commit": "git add . && git-cz",
     "lint-staged": "npx lint-staged",
     "prepare": "husky install"
   },
