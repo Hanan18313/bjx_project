@@ -15,7 +15,7 @@ const routers: Array<RouteRecordRaw> = [
   {
     path: '/',
     redirect() {
-      return '/home';
+      return '/login';
     },
     meta: {
       keepAlive: true,
@@ -26,6 +26,11 @@ const routers: Array<RouteRecordRaw> = [
     name: 'Home',
     component: () => import('@/layouts/index.vue'),
     children: [...modules],
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login.vue'),
   },
   {
     path: '/404',

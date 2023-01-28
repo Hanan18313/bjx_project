@@ -2,5 +2,6 @@ node_modules
 /dist
 /public
 /src/mock
+/src/assets/js
 index.html
 /*.json
