@@ -1,7 +1,16 @@
+<script lang="ts" setup>
+import router from '@/router';
+import { Result, Button } from 'ant-design-vue';
+const handleBackHome = () => {
+  router.replace({
+    path: '/home',
+  });
+};
+</script>
 <template>
-  <a-result status="404" title="404" sub-title="Sorry, the page you visited does not exist.">
+  <Result status="404" title="404" sub-title="Sorry, the page you visited does not exist.">
     <template #extra>
-      <a-button type="primary">Back Home</a-button>
+      <Button type="primary" @click="handleBackHome">回到首页</Button>
     </template>
-  </a-result>
+  </Result>
 </template>
