@@ -1,23 +1,42 @@
 <script lang="ts" setup>
-import { computed, reactive } from 'vue';
+import { computed, onMounted, onUpdated, reactive, watch } from 'vue';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue';
 import { Layout, LayoutSider, LayoutContent, LayoutHeader, Menu } from 'ant-design-vue';
+import { Key } from 'ant-design-vue/lib/_util/type';
 import * as icon from '@icon-park/vue-next';
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView, useRoute } from 'vue-router';
 import store from '@/store';
 
 interface State {
   collapsed: boolean;
   selectedKeys: string[];
+  openKeys: Key[];
 }
 
 const state = reactive<State>({
-  selectedKeys: ['1'],
+  selectedKeys: [''],
   collapsed: false,
+  openKeys: [''],
+});
+
+const route = useRoute();
+
+onMounted(() => {
+  const openkey = [`/${route.path.split('/')[1]}`];
+  state.selectedKeys = [route.path];
+  state.openKeys = openkey;
 });
 
 store.dispatch('common/getSystemMenu', {});
 const menu = computed(() => store.state.common.menu);
+const handleOpenChange = (openKeys: Key[]) => {
+  console.log(openKeys);
+  if (openKeys.length !== 0) {
+    state.openKeys = [openKeys[1]];
+  } else {
+    state.openKeys = [''];
+  }
+};
 </script>
 <template>
   <Layout id="components-layout-demo-custom-trigger">
@@ -26,14 +45,20 @@ const menu = computed(() => store.state.common.menu);
         <img v-if="!state.collapsed" src="../assets/images/logo.png" alt="" />
         <img v-else src="../assets/images/logo1.png" alt="" />
       </div>
-      <Menu v-model:selectedKeys="state.selectedKeys" theme="dark" mode="inline">
-        <template v-for="menuItem in menu" :key="menuItem.key">
-          <Menu.SubMenu>
+      <Menu v-model:selectedKeys="state.selectedKeys" theme="dark" mode="inline" :open-keys="state.openKeys" @open-change="handleOpenChange">
+        <template v-for="menuItem in menu" :key="menuItem.path">
+          <Menu.Item v-if="menuItem.children?.length === 0" :key="menuItem.path">
+            <template #icon>
+              <component :is="icon[menuItem.icon]"></component>
+            </template>
+            <RouterLink :to="menuItem.path">{{ menuItem.name }}</RouterLink>
+          </Menu.Item>
+          <Menu.SubMenu v-else :key="menuItem.path">
             <template #icon>
               <component :is="icon[menuItem.icon]"></component>
             </template>
             <template #title>{{ menuItem.name }}</template>
-            <Menu.Item v-for="item in menuItem.children" :key="item.key" :index="item.path">
+            <Menu.Item v-for="item in menuItem.children" :key="item.path" :index="item.path">
               <RouterLink :to="item.path">{{ item.name }}</RouterLink>
             </Menu.Item>
           </Menu.SubMenu>

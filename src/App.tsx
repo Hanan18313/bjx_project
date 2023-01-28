@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'ant-design-vue';
+import { ConfigProvider, Result } from 'ant-design-vue';
 import { defineComponent, KeepAlive, onErrorCaptured, ref, Suspense } from 'vue';
 import { RouterView } from 'vue-router';
 
@@ -15,7 +15,7 @@ export default defineComponent({
       <>
         {isError.value ? (
           <div>
-            <a-result status="error" title="Someting Is Wrong" sub-title="Please check and modify the following information before resubmitting."></a-result>
+            <Result status="error" title="Someting Is Wrong" sub-title="Please check and modify the following information before resubmitting."></Result>
           </div>
         ) : (
           <ConfigProvider theme-vars={{ blue: '#6476FF', navBarArrowSize: '1.4rem' }}>

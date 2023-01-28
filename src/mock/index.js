@@ -13,6 +13,13 @@ mockjs.mock(/\/menu/, {
   code: 200,
   data: [
     {
+      name: '首页',
+      icon: 'Home',
+      path: '/home',
+      key: '0',
+      children: [],
+    },
+    {
       name: '线索管理',
       icon: 'Clue',
       path: '/clue',
@@ -57,28 +64,28 @@ mockjs.mock(/\/menu/, {
         {
           name: '字典管理',
           icon: '',
-          path: '/system/dictionary',
+          path: '/system/dictManagement',
           key: '2-1',
           children: [],
         },
         {
           name: '权限设置',
           icon: '',
-          path: '/system/auth',
+          path: '/system/authManagement',
           key: '2-2',
           children: [],
         },
         {
           name: '菜单管理',
           icon: '',
-          path: '/system/menu',
+          path: '/system/menuManagement',
           key: '2-3',
           children: [],
         },
         {
           name: '其他设置',
           icon: '',
-          path: '/system/other',
+          path: '/system/otherManagement',
           key: '2-4',
           children: [],
         },

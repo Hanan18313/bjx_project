@@ -1,2 +1,2 @@
 <script lang="ts" setup></script>
-<template>Home</template>
+<template>权限管理</template>

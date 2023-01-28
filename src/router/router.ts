@@ -11,7 +11,6 @@ const modules: Array<RouteRecordRaw> = Object.keys(requireModules).map((filePath
     component: requireModules[filePath],
   };
 });
-console.log(modules);
 const routers: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -21,6 +20,11 @@ const routers: Array<RouteRecordRaw> = [
     meta: {
       keepAlive: true,
     },
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: () => import('@/layouts/index.vue'),
     children: [...modules],
   },
   {

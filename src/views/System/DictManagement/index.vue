@@ -1,2 +1,2 @@
 <script lang="ts" setup></script>
-<template>Home</template>
+<template>字典管理</template>
