@@ -46,7 +46,7 @@ const handleOpenChange = (openKeys: Key[]) => {
         <img v-else src="../assets/images/logo1.png" alt="" />
       </div>
       <Menu v-model:selectedKeys="state.selectedKeys" theme="dark" mode="inline" :open-keys="state.openKeys" @open-change="handleOpenChange">
-        <template v-for="menuItem in menu" :key="menuItem.path">
+        <template v-for="menuItem in menu">
           <Menu.Item v-if="menuItem.children?.length === 0" :key="menuItem.path">
             <template #icon>
               <component :is="icon[menuItem.icon]"></component>
