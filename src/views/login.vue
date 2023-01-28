@@ -65,6 +65,8 @@ const handleLogin = () => {
   background: #fafafa;
   .left-pannel {
     height: 400px;
+    width: 260px;
+    background: #333131;
   }
   .right-pannel {
     flex: 1;
