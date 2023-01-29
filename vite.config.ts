@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import VueMacros from 'unplugin-vue-macros/dist/vite';
 import vue from '@vitejs/plugin-vue';
 import * as path from 'path';
 import progress from 'vite-plugin-progress';
@@ -14,8 +15,12 @@ export default defineConfig({
   },
   define: { 'process.env': {} },
   plugins: [
-    vue(),
-    VueJsx(),
+    VueMacros({
+      plugins: {
+        vue: vue(),
+        vueJsx: VueJsx(),
+      },
+    }),
     legacyPlugin({
       targets: ['chrome 52'], // 需要兼容的目标列表，可以设置多个
       additionalLegacyPolyfills: ['regenerator-runtime/runtime'], // 面向IE11时需要此插件

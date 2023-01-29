@@ -1,18 +1,38 @@
+<!-- eslint-disable -->
 <script lang="ts" setup>
-import { Form, Row, Col } from 'ant-design-vue';
+import { defineProps, defineEmits, defineExpose, markRaw, ref } from 'vue';
+import { Form, Row, Col, FormInstance } from 'ant-design-vue';
+import Input from './Input/index.vue';
+import Select from './Select/index.vue';
+import type { Props } from './types';
+
+const props = defineProps<Props>();
+const { formColumns, formData, formRules } = props;
+
+const componentsType: Record<string, any> = markRaw({
+  Input,
+  Select,
+});
+
+const formRef = ref<FormInstance>();
+defineExpose({ formRef });
 </script>
 <template>
-  <Form>
-    <Row>
-      <Col span="12">
-        <Form.Item></Form.Item>
-      </Col>
-      <Col span="12">
-        <Form.Item></Form.Item>
-      </Col>
-      <Col span="12">
-        <Form.Item></Form.Item>
-      </Col>
+  <Form ref="formRef" :model="formData" :rules="formRules" v-bind="$attrs">
+    <Row style="text-align: start">
+      <template v-for="(column, index) in formColumns" :key="index">
+        <Col v-if="column.slotName" :span="8" :offset="2">
+          {{ column.slotName }}
+          <template>
+            <slot :name="column.slotName"></slot>
+          </template>
+        </Col>
+        <Col v-else :span="8" :offset="2">
+          <Form.Item :label="column.name" :name="column.name">
+            <component :is="componentsType[column.type!!]" v-model="formData[column.name!!]" v-bind="column"></component>
+          </Form.Item>
+        </Col>
+      </template>
     </Row>
   </Form>
 </template>

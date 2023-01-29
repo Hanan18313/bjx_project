@@ -1,5 +1,6 @@
 import { ConfigProvider, Result } from 'ant-design-vue';
 import { defineComponent, KeepAlive, onErrorCaptured, ref, Suspense } from 'vue';
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import { RouterView } from 'vue-router';
 
 export default defineComponent({
@@ -18,7 +19,7 @@ export default defineComponent({
             <Result status="error" title="Someting Is Wrong" sub-title="Please check and modify the following information before resubmitting."></Result>
           </div>
         ) : (
-          <ConfigProvider theme-vars={{ blue: '#6476FF', navBarArrowSize: '1.4rem' }}>
+          <ConfigProvider theme-vars={{ blue: '#6476FF', navBarArrowSize: '1.4rem' }} locale={zhCN}>
             <Suspense onFallback={() => <div> loading...</div>}>
               <RouterView>
                 {({ Component, route }: any) => {

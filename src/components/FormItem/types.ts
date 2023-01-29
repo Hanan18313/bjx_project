@@ -8,11 +8,14 @@ export interface OptionsKeys {
 }
 
 export interface PropsParams {
-  name: string;
+  name?: string;
   type?: string;
-  component?: any;
-  formConfig: KeyParams;
-  inputConfig: KeyParams;
   options?: OptionsKeys[];
   [key: string]: any;
+}
+
+export interface Props {
+  formColumns: PropsParams[];
+  formData: KeyParams;
+  formRules?: KeyParams;
 }

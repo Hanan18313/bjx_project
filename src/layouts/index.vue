@@ -30,7 +30,6 @@ onMounted(() => {
 store.dispatch('common/getSystemMenu', {});
 const menu = computed(() => store.state.common.menu);
 const handleOpenChange = (openKeys: Key[]) => {
-  console.log(openKeys);
   if (openKeys.length !== 0) {
     state.openKeys = [openKeys[1]];
   } else {
