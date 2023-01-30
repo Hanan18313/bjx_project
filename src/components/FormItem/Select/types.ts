@@ -9,6 +9,7 @@ export interface OptionsKeys {
 
 export interface SelectProps {
   modelValue: string | number | undefined;
-  inputConfig?: KeyParams;
+  inputConfig: KeyParams;
   options: OptionsKeys[];
+  [key: string]: any;
 }

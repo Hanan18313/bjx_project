@@ -9,14 +9,14 @@ const useForm = Form.useForm;
 interface State {
   name: string;
   gender: number | string;
-  education: number | string;
+  education: number | string | undefined;
   [key: string]: any;
 }
 
 const state = reactive<State>({
   name: '',
   gender: '',
-  education: '',
+  education: undefined,
 });
 
 const formRules = {
