@@ -11,6 +11,8 @@ export interface PropsParams {
   name?: string;
   type?: string;
   options?: OptionsKeys[];
+  inputConfig?: KeyParams;
+  formConfig?: KeyParams;
   [key: string]: any;
 }
 

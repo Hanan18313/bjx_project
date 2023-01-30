@@ -30,3 +30,26 @@
 10. npm run commit 代码提交到暂存区
 11. npm run lint-staged
 12. npm run prepare 安装 husky
+
+## vscode 添加设置
+
+# 配置 setting.json
+
+{
+"security.workspace.trust.untrustedFiles": "open",
+"diffEditor.ignoreTrimWhitespace": false,
+"editor.formatOnSave": true,
+"editor.codeActionsOnSave": {
+"source.fixAll.eslint": true,
+"source.fixAll.stylelint": true,
+"source.fixAll.prettier": true
+},
+"editor.tabSize": 2,
+"http.proxyAuthorization": null
+}
+
+# 安装插件
+
+1. Prettier - Code formatter
+2. Stylelint
+3. TypeScript Vue Plugin (Volar)

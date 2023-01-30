@@ -21,7 +21,7 @@ const componentsType: Record<string, any> = markRaw({
 <template>
   <Form ref="formRef" :model="formData" v-bind="$attrs">
     <Row style="text-align: start">
-      <template v-for="(column, index) in formColumns" :key="index">
+      <template v-for="column in formColumns" :key="column.name">
         <template v-if="column.slotName">
           <slot :name="column.slotName"></slot>
         </template>
