@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits, ref, watch } from 'vue';
-import { Select } from 'ant-design-vue';
-import type { SelectProps } from './types';
+import { Radio } from 'ant-design-vue';
+import type { RadioProps } from './types';
 
-const { Option } = Select;
+const { Group } = Radio;
 
 const emits = defineEmits(['update:modelValue']);
 
-const props = defineProps<SelectProps>();
+const props = defineProps<RadioProps>();
 const val = ref(props.modelValue);
 const options = ref(props.options);
 
@@ -21,7 +21,7 @@ watch(
 emits('update:modelValue', val);
 </script>
 <template>
-  <Select v-model:value="val" v-bind="$attrs">
-    <Option v-for="item in options" :key="item.value" :value="item.value">{{ item.key }}</Option>
-  </Select>
+  <Group v-model:value="val" v-bind="$attrs">
+    <Radio v-for="item in options" :key="item.value" :value="item.value">{{ item.key }}</Radio>
+  </Group>
 </template>

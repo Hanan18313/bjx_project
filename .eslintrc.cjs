@@ -29,7 +29,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-bitwise': 'off',
-    indent: ['error', 2, { MemberExpression: 0, SwitchCase: 1, ignoredNodes: ['TemplateLiteral'] }], // 强制使用一致的缩进'
+    indent: ['error', 2, { MemberExpression: 1, SwitchCase: 1, ignoredNodes: ['TemplateLiteral'], ObjectExpression: 1, ImportDeclaration: 1 }], // 强制使用一致的缩进'
     'class-methods-use-this': 0,
     quotes: ['error', 'single'],
     'comma-dangle': ['error', 'always-multiline'], // 要求或禁止末尾逗号

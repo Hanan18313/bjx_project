@@ -21,7 +21,7 @@ export const key: InjectionKey<Store<IRootState>> = Symbol('');
 
 const store = createStore<IRootState>({
   plugins,
-  strict: process.env.NODE_ENV === 'development',
+  strict: import.meta.env.MODE === 'development',
   modules: {
     ...modules,
   },

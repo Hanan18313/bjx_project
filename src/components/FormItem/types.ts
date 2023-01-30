@@ -17,5 +17,5 @@ export interface PropsParams {
 export interface Props {
   formColumns: PropsParams[];
   formData: KeyParams;
-  formRules?: KeyParams;
+  formRules: KeyParams;
 }

@@ -1,3 +1,3 @@
 export interface InputProps {
-  value: string;
+  modelValue: string | number | undefined;
 }

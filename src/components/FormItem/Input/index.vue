@@ -3,19 +3,19 @@ import { defineProps, defineEmits, ref, watch } from 'vue';
 import { Input } from 'ant-design-vue';
 import type { InputProps } from './types';
 
-const emits = defineEmits(['update:value']);
+const emits = defineEmits(['update:modelValue']);
 
 const props = defineProps<InputProps>();
-const val = ref(props.value);
+const val = ref(props.modelValue);
 
 watch(
-  () => props.value,
+  () => props.modelValue,
   () => {
-    val.value = props.value;
+    val.value = props.modelValue;
   },
 );
 
-emits('update:value', val);
+emits('update:modelValue', val);
 </script>
 <template>
   <Input v-model:value="val" />

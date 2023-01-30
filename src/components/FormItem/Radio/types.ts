@@ -3,7 +3,7 @@ export interface OptionsKeys {
   value: string | number;
 }
 
-export interface SelectProps {
+export interface RadioProps {
   modelValue: string | number | undefined;
   options: OptionsKeys[];
 }
