@@ -28,12 +28,10 @@
 8. npm run lint:style 校验样式格式
 9. npm run fix:style 修复校验样式文件
 10. npm run commit 代码提交到暂存区
-11. npm run lint-staged
-12. npm run prepare 安装 husky
 
 ## vscode 添加设置
 
-### 配置 setting.json
+### 配置 settings.json
 
 {
 "security.workspace.trust.untrustedFiles": "open",
