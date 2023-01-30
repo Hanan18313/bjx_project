@@ -1,13 +1,13 @@
-<!-- eslint-disable -->
 <script lang="ts" setup>
-import { defineProps, defineEmits, defineExpose, markRaw, ref } from 'vue';
+import { defineProps, defineEmits, defineExpose, markRaw, ref, toRefs } from 'vue';
 import { Form, Row, Col, FormInstance } from 'ant-design-vue';
 import Input from './Input/index.vue';
 import Select from './Select/index.vue';
 import type { Props } from './types';
 
 const props = defineProps<Props>();
-const { formColumns, formData, formRules } = props;
+const { formColumns, formData, formRules } = toRefs(props);
+console.log(formColumns.value);
 
 const componentsType: Record<string, any> = markRaw({
   Input,
@@ -28,7 +28,7 @@ defineExpose({ formRef });
           </template>
         </Col>
         <Col v-else :span="8" :offset="2">
-          <Form.Item :label="column.name" :name="column.name">
+          <Form.Item :label="column.label" :name="column.name">
             <component :is="componentsType[column.type!!]" v-model="formData[column.name!!]" v-bind="column"></component>
           </Form.Item>
         </Col>
