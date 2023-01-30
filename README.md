@@ -33,7 +33,7 @@
 
 ## vscode 添加设置
 
-# 配置 setting.json
+### 配置 setting.json
 
 {
 "security.workspace.trust.untrustedFiles": "open",
@@ -48,7 +48,7 @@
 "http.proxyAuthorization": null
 }
 
-# 安装插件
+### 安装插件
 
 1. Prettier - Code formatter
 2. Stylelint
