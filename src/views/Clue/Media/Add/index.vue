@@ -3,7 +3,7 @@ import { reactive, ref, toRaw } from 'vue';
 import { Form, Button, FormInstance, Col } from 'ant-design-vue';
 import FormComponent from '@/components/FormItem/index.vue';
 import { PropsParams } from '@/components/FormItem/types';
-import { BASEURL } from '@/utils/axios';
+import { api } from '@/config/api';
 
 const useForm = Form.useForm;
 
@@ -63,6 +63,7 @@ const formColumns: PropsParams[] = [
 const { resetFields, validate, validateInfos } = useForm(state, formRules);
 
 const handleSubmit = () => {
+  console.log(api);
   validate()
     .then(() => {
       console.log(toRaw(state));

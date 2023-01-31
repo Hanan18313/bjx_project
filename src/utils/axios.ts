@@ -9,7 +9,7 @@ const { CancelToken } = axios;
 
 const APP_TOKEN_KEY = 'APP_TOKEN_KEY';
 
-interface Env {
+export interface Env {
   [key: string]: string;
 }
 
@@ -181,7 +181,7 @@ const responseDownloadConfig = (res: any) => {
 };
 
 export const Axios = axios.create({
-  baseURL: BASEURL,
+  // baseURL: BASEURL,
   timeout: 6000,
   responseType: 'json',
   withCredentials: true,
