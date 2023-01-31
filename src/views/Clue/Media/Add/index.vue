@@ -3,6 +3,7 @@ import { reactive, ref, toRaw } from 'vue';
 import { Form, Button, FormInstance, Col } from 'ant-design-vue';
 import FormComponent from '@/components/FormItem/index.vue';
 import { PropsParams } from '@/components/FormItem/types';
+import { BASEURL } from '@/utils/axios';
 
 const useForm = Form.useForm;
 
@@ -56,9 +57,6 @@ const formColumns: PropsParams[] = [
       { key: '硕士研究生学历', value: 3 },
       { key: '博士研究生学历', value: 4 },
     ],
-  },
-  {
-    slotName: 'Actions',
   },
 ];
 

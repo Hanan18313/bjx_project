@@ -24,14 +24,14 @@ interface Config extends AxiosRequestConfig {
 
 const sources: ISources = {};
 
-const NODE_ENV: string = import.meta.env.MODE || 'start';
+const NODE_ENV: string = process.env || 'start';
 
 const env: Env = {
-  start: '',
-  build: '',
-  release3000: '',
-  release4000: '',
-  release5000: '',
+  start: 'start',
+  build: 'build',
+  release3000: 'release3000',
+  release4000: 'release4000',
+  release5000: 'release5000',
 };
 
 export const BASEURL = `http${env[NODE_ENV]}`;

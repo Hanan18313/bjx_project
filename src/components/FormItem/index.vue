@@ -22,15 +22,13 @@ const componentsType: Record<string, any> = markRaw({
   <Form ref="formRef" :model="formData" v-bind="$attrs">
     <Row style="text-align: start">
       <template v-for="column in formColumns" :key="column.name">
-        <template v-if="column.slotName">
-          <slot :name="column.slotName"></slot>
-        </template>
-        <Col v-else :span="8" :offset="2">
+        <Col :span="8" :offset="2">
           <Form.Item :label="column.label" :name="column.name" v-bind="formRules[column.name!!]">
             <component :is="componentsType[column.type!!]" v-model="formData[column.name!!]" v-bind="column"></component>
           </Form.Item>
         </Col>
       </template>
+      <slot name="Actions"></slot>
     </Row>
   </Form>
 </template>
