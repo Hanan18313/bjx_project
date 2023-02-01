@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import { defineProps, defineEmits, ref, watch } from 'vue';
+import { defineProps, defineEmits, ref, watch, UnwrapRef } from 'vue';
 import { Radio } from 'ant-design-vue';
 import type { RadioProps } from './types';
 
 const { Group } = Radio;
 
-const emits = defineEmits(['update:radioValue']);
+const emits = defineEmits(['update:modelValue']);
 
 const props = defineProps<RadioProps>();
-const val = ref(props.modelValue);
+const val = ref<UnwrapRef<string | number | undefined>>(props.modelValue);
 const options = ref(props.options);
 
-watch(
-  () => props.modelValue,
-  () => {
-    val.value = props.modelValue;
-  },
-);
+// watch(
+//   () => props.modelValue,
+//   () => {
+//     val.value = props.modelValue;
+//   },
+// );
 
-emits('update:radioValue', val);
+emits('update:modelValue', val);
 </script>
 <template>
   <Group v-model:value="val" v-bind="$attrs">

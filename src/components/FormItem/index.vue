@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { defineProps, markRaw, toRefs } from 'vue';
-import { Form, Row, Col } from 'ant-design-vue';
+import { defineProps, markRaw, ref, toRefs } from 'vue';
+import { Form, Row, Col, FormInstance } from 'ant-design-vue';
 import Input from './Input/index.vue';
 import Select from './Select/index.vue';
 import Radio from './Radio/index.vue';
@@ -17,8 +17,8 @@ const componentsType: Record<string, any> = markRaw({
   AutoComplete,
 });
 
-// const formRef = ref<FormInstance>();
-// defineExpose({ formRef });
+const formRef = ref<FormInstance>();
+defineExpose({ formRef });
 </script>
 <template>
   <Form ref="formRef" :model="formData" v-bind="$attrs">
@@ -26,10 +26,6 @@ const componentsType: Record<string, any> = markRaw({
       <template v-for="column in formColumns" :key="column.name">
         <Col :span="8" :offset="2">
           <Form.Item :label="column.label" :name="column.name" v-bind="formRules!![column.name!!]">
-            <!-- <Input v-if="column.type === 'Input'" v-model="formData[column.name!!]" v-bind="column"></Input>
-            <Select v-if="column.type === 'Select'" v-model="formData[column.name!!]" v-bind="column"></Select>
-            <Radio v-if="column.type === 'Radio'" v-model="formData[column.name!!]" v-bind="column"></Radio>
-            <AutoComplete v-if="column.type === 'AutoComplete'" v-model="formData[column.name!!]" v-bind="column"></AutoComplete> -->
             <component :is="componentsType[column.type!!]" v-model="formData[column.name!!]" v-bind="column"></component>
           </Form.Item>
         </Col>

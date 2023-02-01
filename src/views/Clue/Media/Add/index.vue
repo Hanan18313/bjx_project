@@ -9,21 +9,22 @@ const useForm = Form.useForm;
 interface State {
   name: string;
   gender: number | string;
-  education: number | string | undefined;
+  education: number | string | null;
   [key: string]: any;
 }
 
 const state = reactive<State>({
   name: '',
   gender: '',
-  education: undefined,
+  education: null,
+  auto: null,
 });
 
-const formRules = {
+const formRules = reactive({
   name: [{ required: true, message: 'Please Input name', trigger: 'blur' }],
   gender: [{ required: true, message: 'Please select gender', trigger: 'blur' }],
   education: [{ required: true, message: 'Please select education', trigger: 'blur' }],
-};
+});
 
 const formColumns: PropsParams[] = [
   {
@@ -64,10 +65,7 @@ const formColumns: PropsParams[] = [
     inputConfig: {
       placeholder: '请输入关键字',
     },
-    options: [
-      { key: '女', value: 0 },
-      { key: '男', value: 1 },
-    ],
+    options: [{ value: '一二三' }, { value: '四五六' }],
   },
 ];
 

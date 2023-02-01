@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import { defineProps, defineEmits, ref, watch, toRefs, ToRefs } from 'vue';
+import { defineProps, defineEmits, ref, watch, toRefs, ToRefs, UnwrapRef } from 'vue';
 import { Select } from 'ant-design-vue';
 import type { SelectProps } from './types';
 
-const emits = defineEmits(['update:selectValue']);
+const emits = defineEmits(['update:modelValue']);
 
 const props = defineProps<SelectProps>();
 const { inputConfig, options } = toRefs<ToRefs>(props);
-const val = ref(props.modelValue);
+const val = ref<UnwrapRef<string | number | undefined>>(props.modelValue);
 
-watch(
-  () => props.modelValue,
-  () => {
-    val.value = props.modelValue;
-  },
-);
+// watch(
+//   () => props.modelValue,
+//   () => {
+//     val.value = props.modelValue;
+//   },
+// );
 
-emits('update:selectValue', val);
+emits('update:modelValue', val);
 </script>
 <template>
   <Select v-model:value="val" v-bind="$attrs" :placeholder="inputConfig?.placeholder">
