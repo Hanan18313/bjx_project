@@ -1,11 +1,4 @@
-export interface KeyParams {
-  [key: string]: any;
-}
-
-export interface OptionsKeys {
-  key: string;
-  value: string | number;
-}
+import { OptionsKeys, KeyParams } from '../types';
 
 export interface SelectProps {
   modelValue: string | number | undefined;

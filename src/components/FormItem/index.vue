@@ -4,6 +4,7 @@ import { Form, Row, Col } from 'ant-design-vue';
 import Input from './Input/index.vue';
 import Select from './Select/index.vue';
 import Radio from './Radio/index.vue';
+import AutoComplete from './AutoComplete/index.vue';
 import type { Props } from './types';
 
 const props = defineProps<Props>();
@@ -13,6 +14,7 @@ const componentsType: Record<string, any> = markRaw({
   Input,
   Select,
   Radio,
+  AutoComplete,
 });
 
 // const formRef = ref<FormInstance>();
@@ -23,7 +25,11 @@ const componentsType: Record<string, any> = markRaw({
     <Row style="text-align: start">
       <template v-for="column in formColumns" :key="column.name">
         <Col :span="8" :offset="2">
-          <Form.Item :label="column.label" :name="column.name" v-bind="formRules[column.name!!]">
+          <Form.Item :label="column.label" :name="column.name" v-bind="formRules!![column.name!!]">
+            <!-- <Input v-if="column.type === 'Input'" v-model="formData[column.name!!]" v-bind="column"></Input>
+            <Select v-if="column.type === 'Select'" v-model="formData[column.name!!]" v-bind="column"></Select>
+            <Radio v-if="column.type === 'Radio'" v-model="formData[column.name!!]" v-bind="column"></Radio>
+            <AutoComplete v-if="column.type === 'AutoComplete'" v-model="formData[column.name!!]" v-bind="column"></AutoComplete> -->
             <component :is="componentsType[column.type!!]" v-model="formData[column.name!!]" v-bind="column"></component>
           </Form.Item>
         </Col>

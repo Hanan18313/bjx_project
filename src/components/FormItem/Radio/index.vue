@@ -5,7 +5,7 @@ import type { RadioProps } from './types';
 
 const { Group } = Radio;
 
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:radioValue']);
 
 const props = defineProps<RadioProps>();
 const val = ref(props.modelValue);
@@ -18,7 +18,7 @@ watch(
   },
 );
 
-emits('update:modelValue', val);
+emits('update:radioValue', val);
 </script>
 <template>
   <Group v-model:value="val" v-bind="$attrs">

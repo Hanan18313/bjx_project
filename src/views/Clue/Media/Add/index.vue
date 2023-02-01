@@ -20,9 +20,9 @@ const state = reactive<State>({
 });
 
 const formRules = {
-  name: [{ required: true, message: 'Please Input name' }],
-  gender: [{ required: true, message: 'Please select gender' }],
-  education: [{ required: true, message: 'Please select education' }],
+  name: [{ required: true, message: 'Please Input name', trigger: 'blur' }],
+  gender: [{ required: true, message: 'Please select gender', trigger: 'blur' }],
+  education: [{ required: true, message: 'Please select education', trigger: 'blur' }],
 };
 
 const formColumns: PropsParams[] = [
@@ -55,6 +55,18 @@ const formColumns: PropsParams[] = [
       { key: '本科学历', value: 2 },
       { key: '硕士研究生学历', value: 3 },
       { key: '博士研究生学历', value: 4 },
+    ],
+  },
+  {
+    name: 'auto',
+    type: 'AutoComplete',
+    label: '自动完成',
+    inputConfig: {
+      placeholder: '请输入关键字',
+    },
+    options: [
+      { key: '女', value: 0 },
+      { key: '男', value: 1 },
     ],
   },
 ];

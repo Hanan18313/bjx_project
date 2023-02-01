@@ -3,7 +3,7 @@ import { defineProps, defineEmits, ref, watch, toRefs, ToRefs } from 'vue';
 import { Select } from 'ant-design-vue';
 import type { SelectProps } from './types';
 
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits(['update:selectValue']);
 
 const props = defineProps<SelectProps>();
 const { inputConfig, options } = toRefs<ToRefs>(props);
@@ -16,7 +16,7 @@ watch(
   },
 );
 
-emits('update:modelValue', val);
+emits('update:selectValue', val);
 </script>
 <template>
   <Select v-model:value="val" v-bind="$attrs" :placeholder="inputConfig?.placeholder">

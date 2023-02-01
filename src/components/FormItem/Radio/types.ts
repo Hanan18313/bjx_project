@@ -1,9 +1,7 @@
-export interface OptionsKeys {
-  key: string;
-  value: string | number;
-}
+import { OptionsKeys, KeyParams } from '../types';
 
 export interface RadioProps {
   modelValue: string | number | undefined;
   options: OptionsKeys[];
+  [key: string]: any;
 }
