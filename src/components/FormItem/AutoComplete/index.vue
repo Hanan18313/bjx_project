@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup name="AutoCompleteIndex">
 import { defineProps, defineEmits, ref, toRefs, ToRefs, UnwrapRef, watch } from 'vue';
 import { AutoComplete, AutoCompleteOption, Select } from 'ant-design-vue';
 import { AutoCompleteProps } from './types';
@@ -12,12 +12,12 @@ const { inputConfig, options } = toRefs(props);
 console.log(props);
 const val = ref<UnwrapRef<string | number | undefined>>(props.modelValue);
 
-// watch(
-//   () => props.modelValue,
-//   () => {
-//     val.value = props.modelValue;
-//   },
-// );
+watch(
+  () => props.modelValue,
+  () => {
+    val.value = props.modelValue;
+  },
+);
 
 emits('update:modelValue', val);
 </script>

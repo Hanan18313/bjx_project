@@ -1,13 +1,13 @@
-<script lang="ts" setup>
+<script lang="ts" setup name="FormIndex">
 import { defineProps, markRaw, ref, toRefs } from 'vue';
 import { Form, Row, Col, FormInstance } from 'ant-design-vue';
 import Input from './Input/index.vue';
 import Select from './Select/index.vue';
 import Radio from './Radio/index.vue';
 import AutoComplete from './AutoComplete/index.vue';
-import type { Props } from './types';
+import type { FormProps } from './types';
 
-const props = defineProps<Props>();
+const props = defineProps<FormProps>();
 const { formColumns, formData, formRules } = toRefs(props);
 
 const componentsType: Record<string, any> = markRaw({
@@ -21,12 +21,12 @@ const formRef = ref<FormInstance>();
 defineExpose({ formRef });
 </script>
 <template>
-  <Form ref="formRef" :model="formData" v-bind="$attrs">
+  <Form ref="formRef" :model="formData" v-bind="$attrs" :rules="formRules">
     <Row style="text-align: start">
       <template v-for="column in formColumns" :key="column.name">
         <Col :span="8" :offset="2">
-          <Form.Item :label="column.label" :name="column.name" v-bind="formRules!![column.name!!]">
-            <component :is="componentsType[column.type!!]" v-model="formData[column.name!!]" v-bind="column"></component>
+          <Form.Item :label="column.label" :name="column.name">
+            <component :is="componentsType[column.type!!]" v-model="formData[column.name]" v-bind="column"></component>
           </Form.Item>
         </Col>
       </template>

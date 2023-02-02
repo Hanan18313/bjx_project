@@ -12,15 +12,16 @@ export interface OptionsKeys2 {
 }
 
 export interface PropsParams {
-  name?: string;
-  type?: string;
+  name: string;
+  type: string;
+  label: string;
   options?: OptionsKeys[] | OptionsKeys2[];
   inputConfig?: KeyParams;
   formConfig?: KeyParams;
   [key: string]: any;
 }
 
-export interface Props {
+export interface FormProps {
   formColumns: PropsParams[];
   formData: KeyParams;
   formRules?: KeyParams;

@@ -1,10 +1,12 @@
-<script lang="ts" setup>
-import { reactive, ref, toRaw } from 'vue';
+<script lang="ts" setup name="AddMedia">
+import { reactive, ref } from 'vue';
 import { Form, Button, FormInstance, Col } from 'ant-design-vue';
 import FormComponent from '@/components/FormItem/index.vue';
 import { PropsParams } from '@/components/FormItem/types';
 
-const useForm = Form.useForm;
+interface FormEl {
+  formRef: FormInstance;
+}
 
 interface State {
   name: string;
@@ -12,6 +14,8 @@ interface State {
   education: number | string | null;
   [key: string]: any;
 }
+
+const baseForm = ref<FormEl>();
 
 const state = reactive<State>({
   name: '',
@@ -25,6 +29,11 @@ const formRules = reactive({
   gender: [{ required: true, message: 'Please select gender', trigger: 'blur' }],
   education: [{ required: true, message: 'Please select education', trigger: 'blur' }],
 });
+
+const handleOnSelect = (value: any, option: any) => {
+  console.log(value);
+  console.log(option);
+};
 
 const formColumns: PropsParams[] = [
   {
@@ -50,6 +59,7 @@ const formColumns: PropsParams[] = [
     label: '学历',
     inputConfig: {
       placeholder: '请选择学历',
+      onSelect: handleOnSelect,
     },
     options: [
       { key: '大专及以下学历', value: 1 },
@@ -69,29 +79,28 @@ const formColumns: PropsParams[] = [
   },
 ];
 
-const { resetFields, validate, validateInfos } = useForm(state, formRules);
-
-const handleSubmit = () => {
-  validate()
-    .then(() => {
-      console.log(toRaw(state));
+const handleSubmit = (formEl: FormEl | undefined) => {
+  formEl?.formRef
+    .validate()
+    .then(res => {
+      console.log(res);
     })
     .catch(err => {
       console.log(err);
     });
 };
 
-const handleReset = () => {
-  resetFields();
+const handleReset = (formEl: FormEl | undefined) => {
+  formEl?.formRef.resetFields();
 };
 </script>
 <template>
-  <FormComponent :form-columns="formColumns" :form-data="state" :form-rules="validateInfos">
+  <FormComponent ref="baseForm" :form-columns="formColumns" :form-data="state" :form-rules="formRules">
     <template #Actions>
       <Col :span="14" :offset="10">
         <Form.Item>
-          <Button type="primary" @click="handleSubmit()">提交</Button>
-          <Button style="margin-left: 80px" @click="handleReset()">重置</Button>
+          <Button type="primary" @click="handleSubmit(baseForm)">提交</Button>
+          <Button style="margin-left: 80px" @click="handleReset(baseForm)">重置</Button>
         </Form.Item>
       </Col>
     </template>
