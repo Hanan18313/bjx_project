@@ -22,6 +22,6 @@ emits('update:modelValue', val);
 </script>
 <template>
   <Select v-model:value="val" v-bind="$attrs" :placeholder="inputConfig?.placeholder" @select="inputConfig.onSelect">
-    <Select.Option v-for="item in options" :key="item.key" :value="item.value">{{ item.key }}</Select.Option>
+    <Select.Option v-for="item in options" :key="item.value" :value="item.value">{{ item.label }}</Select.Option>
   </Select>
 </template>

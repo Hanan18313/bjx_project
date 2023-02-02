@@ -11,7 +11,7 @@ const emits = defineEmits<{
 
 const props = defineProps<AutoCompleteProps>();
 const { inputConfig, options } = toRefs(props);
-const val = ref<UnwrapRef<string | number | undefined>>(props.modelValue);
+const val = ref<string | number | undefined>(props.modelValue);
 
 watch(
   () => props.modelValue,
