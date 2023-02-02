@@ -1,10 +1,14 @@
 import { ConfigProvider, Result } from 'ant-design-vue';
 import { defineComponent, KeepAlive, onErrorCaptured, ref, Suspense } from 'vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import { RouterView } from 'vue-router';
 
+dayjs.locale('zh-cn');
+
 export default defineComponent({
-  name: '',
+  name: 'App',
   setup() {
     const isError = ref(null);
     onErrorCaptured((e: any): boolean => {
@@ -19,7 +23,7 @@ export default defineComponent({
             <Result status="error" title="Someting Is Wrong" sub-title="Please check and modify the following information before resubmitting."></Result>
           </div>
         ) : (
-          <ConfigProvider theme-vars={{ blue: '#6476FF', navBarArrowSize: '1.4rem' }} locale={zhCN}>
+          <ConfigProvider locale={zhCN}>
             <Suspense onFallback={() => <div> loading...</div>}>
               <RouterView>
                 {({ Component, route }: any) => {

@@ -22,6 +22,7 @@ const state = reactive<State>({
   gender: '',
   education: null,
   auto: null,
+  date: [],
 });
 
 const formRules = reactive({
@@ -49,8 +50,8 @@ const formColumns: PropsParams[] = [
     type: 'Radio',
     label: '性别',
     options: [
-      { key: '女', value: 0 },
-      { key: '男', value: 1 },
+      { label: '女', value: 0 },
+      { label: '男', value: 1 },
     ],
   },
   {
@@ -62,10 +63,10 @@ const formColumns: PropsParams[] = [
       onSelect: handleOnSelect,
     },
     options: [
-      { key: '大专及以下学历', value: 1 },
-      { key: '本科学历', value: 2 },
-      { key: '硕士研究生学历', value: 3 },
-      { key: '博士研究生学历', value: 4 },
+      { label: '大专及以下学历', value: 1 },
+      { label: '本科学历', value: 2 },
+      { label: '硕士研究生学历', value: 3 },
+      { label: '博士研究生学历', value: 4 },
     ],
   },
   {
@@ -74,6 +75,15 @@ const formColumns: PropsParams[] = [
     label: '自动完成',
     inputConfig: {
       placeholder: '请输入关键字',
+    },
+    options: [{ value: '一二三' }, { value: '四五六' }],
+  },
+  {
+    name: 'date',
+    type: 'DatePicker',
+    label: '日期',
+    inputConfig: {
+      format: 'YYYY-MM-DD',
     },
     options: [{ value: '一二三' }, { value: '四五六' }],
   },

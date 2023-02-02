@@ -3,7 +3,7 @@ export interface KeyParams {
 }
 
 export interface OptionsKeys {
-  key: string;
+  label: string;
   value: string | number;
 }
 

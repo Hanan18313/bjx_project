@@ -29,6 +29,9 @@ export default ({ mode }) =>
       }),
       progress(),
     ],
+    // optimizeDeps: {
+    //   include: ['dayjs/locale/zh-cn', 'ant-design-vue/es/locale/zh_CN']
+    // },
     css: {
       preprocessorOptions: {
         less: {

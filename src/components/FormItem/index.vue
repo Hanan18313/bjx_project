@@ -5,6 +5,7 @@ import Input from './Input/index.vue';
 import Select from './Select/index.vue';
 import Radio from './Radio/index.vue';
 import AutoComplete from './AutoComplete/index.vue';
+import DatePicker from './RangePicker/index.vue';
 import type { FormProps } from './types';
 
 const props = defineProps<FormProps>();
@@ -15,6 +16,7 @@ const componentsType: Record<string, any> = markRaw({
   Select,
   Radio,
   AutoComplete,
+  DatePicker,
 });
 
 const formRef = ref<FormInstance>();

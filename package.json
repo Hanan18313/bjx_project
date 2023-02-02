@@ -43,6 +43,7 @@
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "ant-design-vue": "^3.2.15",
     "axios": "^1.2.2",
+    "dayjs": "^1.11.7",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "qs": "^6.11.0",

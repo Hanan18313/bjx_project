@@ -1,14 +1,16 @@
 <script lang="ts" setup name="RadioIndex">
-import { defineProps, defineEmits, ref, watch, UnwrapRef } from 'vue';
+import { defineProps, defineEmits, ref, watch, Ref } from 'vue';
 import { Radio } from 'ant-design-vue';
 import type { RadioProps } from './types';
 
 const { Group } = Radio;
 
-const emits = defineEmits(['update:modelValue']);
+const emits = defineEmits<{
+  (event: 'update:modelValue', val: Ref<string | number | undefined>): void;
+}>();
 
 const props = defineProps<RadioProps>();
-const val = ref<UnwrapRef<string | number | undefined>>(props.modelValue);
+const val = ref<string | number | undefined>(props.modelValue);
 const options = ref(props.options);
 
 watch(
@@ -22,6 +24,6 @@ emits('update:modelValue', val);
 </script>
 <template>
   <Group v-model:value="val" v-bind="$attrs">
-    <Radio v-for="item in options" :key="item.value" :value="item.value">{{ item.key }}</Radio>
+    <Radio v-for="item in options" :key="item.value" :value="item.value">{{ item.label }}</Radio>
   </Group>
 </template>
