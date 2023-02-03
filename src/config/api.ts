@@ -36,7 +36,8 @@ const commonEnv: Env = {
   },
 };
 
-const commonApi: Record<string, any> = NODE_ENV === 'build' ? commonEnv[NODE_ENV] : commonEnv['start'];
+const commonApi: Record<string, any> =
+  NODE_ENV === 'build' ? commonEnv[NODE_ENV] : commonEnv['start'];
 
 export const api: IApi = {
   ...commonApi,

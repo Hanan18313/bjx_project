@@ -26,5 +26,9 @@ watch(
 emits('update:modelValue', val);
 </script>
 <template>
-  <RangePicker v-model:value="val" :disabled-date="disabledDate" :format="inputConfig?.format"></RangePicker>
+  <RangePicker
+    v-model:value="val"
+    :disabled-date="disabledDate"
+    :format="inputConfig?.format"
+  ></RangePicker>
 </template>

@@ -8,7 +8,7 @@ const emits = defineEmits<{
 }>();
 
 const props = defineProps<InputProps>();
-const { inputConfig } = toRefs<ToRefs>(props);
+const { inputConfig } = toRefs(props);
 const val = ref<string | number | undefined>(props.modelValue);
 
 watch(
@@ -21,5 +21,12 @@ watch(
 emits('update:modelValue', val);
 </script>
 <template>
-  <Input v-model:value="val" :placeholder="inputConfig.placeholder" />
+  <Input
+    v-model:value="val"
+    :placeholder="inputConfig?.placeholder"
+    :maxlength="inputConfig?.maxlength"
+    :size="inputConfig?.size"
+    :allow-clear="inputConfig?.allowClear"
+    :disabled="inputConfig?.disabled"
+  />
 </template>

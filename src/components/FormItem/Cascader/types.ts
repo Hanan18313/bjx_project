@@ -1,7 +1,7 @@
 import { KeyParams, OptionsKeys } from '../types';
 
-export interface AutoCompleteProps {
-  modelValue: string | number | undefined;
+export interface CascaderProps {
+  modelValue: (string | number)[];
   options: OptionsKeys[];
   inputConfig?: KeyParams;
   [key: string]: any;

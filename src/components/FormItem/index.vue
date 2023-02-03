@@ -6,6 +6,10 @@ import Select from './Select/index.vue';
 import Radio from './Radio/index.vue';
 import AutoComplete from './AutoComplete/index.vue';
 import DatePicker from './RangePicker/index.vue';
+import Cascader from './Cascader/index.vue';
+import Checkbox from './Checkbox/index.vue';
+import Swtich from './Switch/index.vue';
+import InputNumber from './InputNumber/index.vue';
 import type { FormProps } from './types';
 
 const props = defineProps<FormProps>();
@@ -17,6 +21,10 @@ const componentsType: Record<string, any> = markRaw({
   Radio,
   AutoComplete,
   DatePicker,
+  Cascader,
+  Checkbox,
+  Swtich,
+  InputNumber,
 });
 
 const formRef = ref<FormInstance>();
@@ -28,7 +36,11 @@ defineExpose({ formRef });
       <template v-for="column in formColumns" :key="column.name">
         <Col :span="8" :offset="2">
           <Form.Item :label="column.label" :name="column.name">
-            <component :is="componentsType[column.type!!]" v-model="formData[column.name]" v-bind="column"></component>
+            <component
+              :is="componentsType[column.type!!]"
+              v-model="formData[column.name]"
+              v-bind="column"
+            ></component>
           </Form.Item>
         </Col>
       </template>

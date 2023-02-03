@@ -29,7 +29,17 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-bitwise': 'off',
-    indent: ['error', 2, { MemberExpression: 1, SwitchCase: 1, ignoredNodes: ['TemplateLiteral'], ObjectExpression: 1, ImportDeclaration: 1 }], // 强制使用一致的缩进'
+    indent: [
+      'error',
+      2,
+      {
+        MemberExpression: 1,
+        SwitchCase: 1,
+        ignoredNodes: ['TemplateLiteral'],
+        ObjectExpression: 1,
+        ImportDeclaration: 1,
+      },
+    ], // 强制使用一致的缩进'
     'class-methods-use-this': 0,
     quotes: ['error', 'single'],
     'comma-dangle': ['error', 'always-multiline'], // 要求或禁止末尾逗号
@@ -53,7 +63,8 @@ module.exports = {
     semi: [2, 'always'], //语句强制分号结尾
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-explicit-any': ['off'],
-    'max-len': ['error', 300],
+    'max-len': 0, // 单行最大长度限制关闭
+    // 'max-len': ['error', 300],
     'vue/multi-word-component-names': 'off',
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@typescript-eslint/no-non-null-assertion': 'off', // 允许使用|判空

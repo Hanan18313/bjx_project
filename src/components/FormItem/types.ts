@@ -3,8 +3,10 @@ export interface KeyParams {
 }
 
 export interface OptionsKeys {
-  label: string;
+  label?: string;
   value: string | number;
+  disabled?: boolean;
+  children?: OptionsKeys[];
 }
 
 export interface OptionsKeys2 {
@@ -15,7 +17,7 @@ export interface PropsParams {
   name: string;
   type: string;
   label: string;
-  options?: OptionsKeys[] | OptionsKeys2[];
+  options?: OptionsKeys[];
   inputConfig?: KeyParams;
   formConfig?: KeyParams;
   [key: string]: any;

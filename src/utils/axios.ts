@@ -67,7 +67,8 @@ const requestConfig = (config: Config): Config => {
     newConfig.data = qs.stringify(newConfig.data);
   }
 
-  const request = JSON.stringify(newConfig.url) + JSON.stringify(newConfig.data) + JSON.stringify(config.params);
+  const request =
+    JSON.stringify(newConfig.url) + JSON.stringify(newConfig.data) + JSON.stringify(config.params);
   const token = storage.get(APP_TOKEN_KEY);
   newConfig.cancelToken = new CancelToken((cancel: Canceler) => {
     sources[request] = cancel;
@@ -104,7 +105,10 @@ const requestError = (error: any) => {
 
 // 响应拦截器通常配置
 const responseConfig = (res: AxiosResponse) => {
-  const request = JSON.stringify(res.config.url) + JSON.stringify(res.config.data) + JSON.stringify(res.config.params);
+  const request =
+    JSON.stringify(res.config.url) +
+    JSON.stringify(res.config.data) +
+    JSON.stringify(res.config.params);
   requestList.splice(
     requestList.findIndex((item: string) => item === request),
     1,

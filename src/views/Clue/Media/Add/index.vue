@@ -15,6 +15,10 @@ interface State {
   [key: string]: any;
 }
 
+interface Option {
+  value: string;
+}
+
 const baseForm = ref<FormEl>();
 
 const state = reactive<State>({
@@ -31,7 +35,7 @@ const formRules = reactive({
   education: [{ required: true, message: 'Please select education', trigger: 'blur' }],
 });
 
-const handleOnSelect = (value: any, option: any) => {
+const handleOnSelect = (value: any, option: Option) => {
   console.log(value);
   console.log(option);
 };
@@ -43,6 +47,7 @@ const formColumns: PropsParams[] = [
     label: '姓名',
     inputConfig: {
       placeholder: '请输入姓名',
+      disabled: false,
     },
   },
   {
@@ -75,6 +80,11 @@ const formColumns: PropsParams[] = [
     label: '自动完成',
     inputConfig: {
       placeholder: '请输入关键字',
+      filterOptions: (input: string, option: Option) => {
+        // 动态筛选
+        console.log(input);
+        console.log(option);
+      },
     },
     options: [{ value: '一二三' }, { value: '四五六' }],
   },
@@ -85,7 +95,6 @@ const formColumns: PropsParams[] = [
     inputConfig: {
       format: 'YYYY-MM-DD',
     },
-    options: [{ value: '一二三' }, { value: '四五六' }],
   },
 ];
 
@@ -105,7 +114,12 @@ const handleReset = (formEl: FormEl | undefined) => {
 };
 </script>
 <template>
-  <FormComponent ref="baseForm" :form-columns="formColumns" :form-data="state" :form-rules="formRules">
+  <FormComponent
+    ref="baseForm"
+    :form-columns="formColumns"
+    :form-data="state"
+    :form-rules="formRules"
+  >
     <template #Actions>
       <Col :span="14" :offset="10">
         <Form.Item>

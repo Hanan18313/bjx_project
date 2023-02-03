@@ -2,6 +2,8 @@
 import router from '@/router';
 import { Form, Row, Col, Input, Button, Typography, Divider } from 'ant-design-vue';
 
+const { Title } = Typography;
+
 const handleLogin = () => {
   router.push({
     path: '/home',
@@ -17,7 +19,7 @@ const handleLogin = () => {
       </div>
       <div class="right-pannel">
         <Typography>
-          <Typography.Title :level="2" style="color: #aaa; text-align: center">北极星学社管理后台</Typography.Title>
+          <Title :level="2" style="color: #aaa; text-align: center">北极星学社管理后台</Title>
         </Typography>
         <Form>
           <Row>

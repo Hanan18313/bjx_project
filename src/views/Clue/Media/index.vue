@@ -21,7 +21,13 @@ for (let i = 0; i < 100; i++) {
 }
 
 const columns: any = [
-  { title: 'Full Name', width: 100, dataIndex: 'name', key: 'name', fixed: 'left' },
+  {
+    title: 'Full Name',
+    width: 100,
+    dataIndex: 'name',
+    key: 'name',
+    fixed: 'left',
+  },
   { title: 'Age', width: 100, dataIndex: 'age', key: 'age', fixed: 'left' },
   { title: 'Column 1', dataIndex: 'address', key: '1', width: 150 },
   { title: 'Column 2', dataIndex: 'address', key: '2', width: 150 },

@@ -1,9 +1,7 @@
 <script lang="ts" setup name="AutoCompleteIndex">
-import { defineProps, defineEmits, ref, toRefs, UnwrapRef, watch, Ref } from 'vue';
+import { defineProps, defineEmits, ref, toRefs, watch, Ref } from 'vue';
 import { AutoComplete } from 'ant-design-vue';
 import { AutoCompleteProps } from './types';
-
-const { Option } = AutoComplete;
 
 const emits = defineEmits<{
   (event: 'update:modelValue', val: Ref<string | number | undefined>): void;
@@ -23,9 +21,15 @@ watch(
 emits('update:modelValue', val);
 </script>
 <template>
-  <AutoComplete v-model:value="val" :placeholder="inputConfig.placeholder">
-    <template #:dataSource>
-      <Option v-for="item in options" :key="item.value">{{ item.label }}</Option>
-    </template>
+  <AutoComplete
+    v-model:value="val"
+    :filter-option="inputConfig?.filterOptions"
+    :options="options"
+    :placeholder="inputConfig?.placeholder"
+    :allow-clear="inputConfig?.allowClear"
+    :disabled="inputConfig?.disabled"
+    @change="inputConfig?.change"
+    @select="inputConfig?.select"
+  >
   </AutoComplete>
 </template>

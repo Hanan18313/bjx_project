@@ -1,6 +1,6 @@
 import { KeyParams } from '../types';
 
-export interface InputProps {
+export interface InputNumberProps {
   modelValue: string | number | undefined;
   inputConfig?: KeyParams;
   [key: string]: any;
