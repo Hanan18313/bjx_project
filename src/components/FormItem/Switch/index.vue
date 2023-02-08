@@ -24,9 +24,9 @@ emits('update:modelValue', val);
   <Switch
     :disabled="inputConfig?.disabled"
     :size="inputConfig?.size"
-    :checked-value="inputConfig?.checked - value"
-    :un-checked-value="inputConfig?.un - checked - value"
-    :un-checked-children="inputConfig?.un - checked - children"
-    :checked-children="inputConfig?.checked - children"
+    :checked-value="inputConfig?.checkedValue"
+    :un-checked-value="inputConfig?.unCheckedValue"
+    :un-checked-children="inputConfig?.unCheckedChildren"
+    :checked-children="inputConfig?.checkedChildren"
   ></Switch>
 </template>

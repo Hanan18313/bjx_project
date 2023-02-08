@@ -112,7 +112,10 @@
     };
     var loaded = false;
     script.onload = script.onreadystatechange = function () {
-      if (!loaded && (!script.readyState || 'loaded' === script.readyState || 'complete' === script.readyState)) {
+      if (
+        !loaded &&
+        (!script.readyState || 'loaded' === script.readyState || 'complete' === script.readyState)
+      ) {
         loaded = true;
         setTimeout(function () {
           cb(false);
@@ -248,22 +251,28 @@
       if (s === 'init') {
         status[type] = 'loading';
         callbacks[type].push(init);
-        load(config.protocol, newConfig.static_servers || newConfig.domains, newConfig[type] || newConfig.path, null, function (err) {
-          if (err) {
-            status[type] = 'fail';
-            throwError('networkError', config);
-          } else {
-            status[type] = 'loaded';
-            var cbs = callbacks[type];
-            for (var i = 0, len = cbs.length; i < len; i = i + 1) {
-              var cb = cbs[i];
-              if (isFunction(cb)) {
-                cb();
+        load(
+          config.protocol,
+          newConfig.static_servers || newConfig.domains,
+          newConfig[type] || newConfig.path,
+          null,
+          function (err) {
+            if (err) {
+              status[type] = 'fail';
+              throwError('networkError', config);
+            } else {
+              status[type] = 'loaded';
+              var cbs = callbacks[type];
+              for (var i = 0, len = cbs.length; i < len; i = i + 1) {
+                var cb = cbs[i];
+                if (isFunction(cb)) {
+                  cb();
+                }
               }
+              callbacks[type] = [];
             }
-            callbacks[type] = [];
-          }
-        });
+          },
+        );
       } else if (s === 'loaded') {
         init();
       } else if (s === 'fail') {

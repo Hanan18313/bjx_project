@@ -23,7 +23,7 @@ emits('update:modelValue', val);
   <CheckboxGroup
     :options="inputConfig?.options"
     :disabled="inputConfig?.disabled"
-    @change="inputConfig?.change"
+    @change="inputConfig?.onChange"
   >
   </CheckboxGroup>
 </template>

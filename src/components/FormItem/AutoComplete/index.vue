@@ -28,8 +28,8 @@ emits('update:modelValue', val);
     :placeholder="inputConfig?.placeholder"
     :allow-clear="inputConfig?.allowClear"
     :disabled="inputConfig?.disabled"
-    @change="inputConfig?.change"
-    @select="inputConfig?.select"
+    @change="inputConfig?.onChange"
+    @select="inputConfig?.onSelect"
   >
   </AutoComplete>
 </template>

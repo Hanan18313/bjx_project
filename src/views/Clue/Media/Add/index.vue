@@ -96,6 +96,12 @@ const formColumns: PropsParams[] = [
       format: 'YYYY-MM-DD',
     },
   },
+  {
+    name: 'cover',
+    type: 'Upload',
+    label: '封面',
+    inputConfig: {},
+  },
 ];
 
 const handleSubmit = (formEl: FormEl | undefined) => {

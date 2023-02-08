@@ -29,6 +29,6 @@ emits('update:modelValue', val);
     :precision="inputConfig?.precision"
     :step="inputConfig?.step"
     :size="inputConfig?.size"
-    @change="inputConfig?.change"
+    @change="inputConfig?.onChange"
   ></InputNumber>
 </template>

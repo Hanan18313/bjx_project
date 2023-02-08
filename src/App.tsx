@@ -20,7 +20,11 @@ export default defineComponent({
       <>
         {isError.value ? (
           <div>
-            <Result status="error" title="Someting Is Wrong" sub-title="Please check and modify the following information before resubmitting."></Result>
+            <Result
+              status="error"
+              title="Someting Is Wrong"
+              sub-title="Please check and modify the following information before resubmitting."
+            ></Result>
           </div>
         ) : (
           <ConfigProvider locale={zhCN}>
@@ -31,8 +35,14 @@ export default defineComponent({
                   const isKeepAlive = meta && meta.keepAlive;
                   return (
                     <>
-                      <KeepAlive>{isKeepAlive ? <Component key={meta.usePathKey ? route.fullPath : undefined} /> : null}</KeepAlive>
-                      {!isKeepAlive ? <Component key={meta.usePathKey ? route.fullPath : undefined} /> : null}
+                      <KeepAlive>
+                        {isKeepAlive ? (
+                          <Component key={meta.usePathKey ? route.fullPath : undefined} />
+                        ) : null}
+                      </KeepAlive>
+                      {!isKeepAlive ? (
+                        <Component key={meta.usePathKey ? route.fullPath : undefined} />
+                      ) : null}
                     </>
                   );
                 }}

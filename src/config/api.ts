@@ -43,3 +43,5 @@ export const api: IApi = {
   ...commonApi,
   ...env[NODE_ENV],
 };
+
+export const UpAction = 'https://up.bjx.com.cn/api/';
