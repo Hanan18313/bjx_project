@@ -44,4 +44,4 @@ export const api: IApi = {
   ...env[NODE_ENV],
 };
 
-export const UpAction = 'https://up.bjx.com.cn/api/';
+export const UpAction = 'https://up.bjx.com.cn/api/UploadFile/';

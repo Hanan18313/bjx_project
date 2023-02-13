@@ -1,32 +1,48 @@
 <script lang="ts" setup name="UploadIndex">
-import { ref, defineEmits, Ref, defineProps, toRefs, onMounted } from 'vue';
-import { Upload, Button, UploadFile, message, UploadChangeParam } from 'ant-design-vue';
+import { ref, defineEmits, Ref, defineProps, toRefs, onMounted, watch } from 'vue';
+import {
+  Upload,
+  Button,
+  UploadFile,
+  message,
+  UploadChangeParam,
+  TypographyText,
+} from 'ant-design-vue';
 import { UploadOutlined } from '@ant-design/icons-vue';
 import { UpAction } from '@/config/api';
 import { UploadProps } from './types';
 
-const fileTypeList: any = [];
+const fileTypeList: any = [
+  'doc',
+  'docx',
+  'pdf',
+  'jpeg',
+  // 'jpg',
+  'png',
+  'zip',
+  'z7',
+  'rar',
+];
 
 const emits = defineEmits<{
-  (event: 'update:modelValue', val: Ref<string | number | boolean>): void;
+  (event: 'update:modelValue', val: Ref<UploadFile[]>): void;
 }>();
 
 const uploadUrl = ref<string>(UpAction);
 const props = defineProps<UploadProps>();
 
 const { inputConfig } = toRefs(props);
-const fileList = ref<UploadFile[]>(props.fileList);
+const fileList = ref<UploadFile[]>(props.modelValue);
 
 const handleBeforeUpload = (file: UploadFile): Promise<any> => {
-  console.log(file);
+  const fileStuffix = file.name.split('.')[file.name.split('.').length - 1];
+  const index = fileTypeList.indexOf(fileStuffix);
+  const limitSize = file.size! / 1024 / 1024 < 2;
   return new Promise((resolve, reject) => {
-    if (!fileTypeList) {
-      const index = fileTypeList.indexOf(file.type as string);
-      if (index > 0) {
-        message.error(`您只能上传${fileTypeList[index]}文件`);
-      }
+    if (index === -1) {
+      message.error('请您选择正确的文件格式');
+      return reject(new Error('请您选择正确的文件格式'));
     }
-    const limitSize = file.size! / 1024 / 1024 < 2;
     if (!limitSize) {
       message.error('文件大小不能大于2MB');
       return reject(new Error('文件大小不能大于2MB'));
@@ -35,14 +51,23 @@ const handleBeforeUpload = (file: UploadFile): Promise<any> => {
   });
 };
 
+watch(
+  () => props.modelValue,
+  () => {
+    fileList.value = props.modelValue;
+  },
+);
+
 const handleChangeUpload = (info: UploadChangeParam) => {
-  console.log(info);
   if (info.file.status === 'error') {
+    return message.error('上传失败');
   }
   if (info.file.status === 'done') {
     if (info.file.response.code == 200) {
       // 上传完成
-      // emits('update:modelValue', );
+      emits('update:modelValue', fileList);
+    } else {
+      return message.error(info.file.response.msg);
     }
   }
 
@@ -60,8 +85,9 @@ const handlePreviewUpload = () => {
     :disabled="inputConfig?.disabled"
     name="file"
     :multiple="inputConfig?.multiple"
-    :accept="inputConfig?.accept"
+    accept=".png,.jpg,.pdf,.doc,.docx,.zip,.rar,.z7"
     :action="uploadUrl"
+    :directory="false"
     :before-upload="handleBeforeUpload"
     :show-upload-list="{ showPreviewIcon: true, showRemoveIcon: true, showDownloadIcon: true }"
     @change="handleChangeUpload"
@@ -69,4 +95,5 @@ const handlePreviewUpload = () => {
   >
     <Button><UploadOutlined></UploadOutlined>上传</Button>
   </Upload>
+  <TypographyText type="secondary">支持格式：png、jpg、pdf、doc、docx、zip、rar、z7</TypographyText>
 </template>

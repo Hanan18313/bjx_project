@@ -27,6 +27,7 @@ const state = reactive<State>({
   education: null,
   auto: null,
   date: [],
+  cover: [],
 });
 
 const formRules = reactive({
@@ -100,7 +101,9 @@ const formColumns: PropsParams[] = [
     name: 'cover',
     type: 'Upload',
     label: '封面',
-    inputConfig: {},
+    inputConfig: {
+      accept: '.jpg, .jpeg, .png',
+    },
   },
 ];
 
