@@ -14,7 +14,7 @@
     "prettier": "prettier --write .",
     "lint:style": "stylelint \"src/*.{css,less}\"",
     "fix:style": "stylelint --fix \"src/*.{css,less}\"",
-    "commit:comment": "引导设置规范化的提交信息",
+    "commit:comment": "",
     "commit": "git add . && git-cz",
     "lint-staged": "npx lint-staged",
     "prepare": "husky install"
@@ -91,5 +91,9 @@
   "browserslist": [
     "defaults and supports es6-module",
     "maintained node versions"
-  ]
+  ],
+  "volta": {
+    "node": "18.12.1",
+    "yarn": "1.22.19"
+  }
 }

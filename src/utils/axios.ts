@@ -24,18 +24,6 @@ interface Config extends AxiosRequestConfig {
 
 const sources: ISources = {};
 
-const NODE_ENV: string = process.env || 'start';
-
-const env: Env = {
-  start: 'start',
-  build: 'build',
-  release3000: 'release3000',
-  release4000: 'release4000',
-  release5000: 'release5000',
-};
-
-export const BASEURL = `http${env[NODE_ENV]}`;
-
 const Toast = (msg: string) => {
   message.destroy();
   message.error(msg, 3);
@@ -208,7 +196,7 @@ Axios.interceptors.response.use(
 
 // 下载文件请求
 export const DownloadAxios = axios.create({
-  baseURL: BASEURL,
+  // baseURL: BASEURL,
   timeout: 60000,
   responseType: 'blob',
   withCredentials: true, // 是否允许带cookie这些

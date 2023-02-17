@@ -51,3 +51,7 @@
 1. Prettier - Code formatter
 2. Stylelint
 3. TypeScript Vue Plugin (Volar)
+
+## 包管理
+
+volta-cli 项目根目录下 执行 volta pin node@version
