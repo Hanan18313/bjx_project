@@ -6,5 +6,6 @@
 **/*.svg
 **/*.sh
 
+src/**/*.less
 src/**/*.scss
 src/**/*.css

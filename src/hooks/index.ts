@@ -1,3 +1,3 @@
-export const useEffectHooks = () => {
-  console.log('hooks');
-};
+import useCountDown from './useCountDown';
+
+export { useCountDown };

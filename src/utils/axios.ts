@@ -29,6 +29,15 @@ const Toast = (msg: string) => {
   message.error(msg, 3);
 };
 
+// 如果需要请求json格式的接口，在请求时配置这个传入参数
+export const typeJson = {
+  _JSONTYPE_: 'json',
+};
+
+export const emptyJson = {
+  _JSONEMPTY_: true,
+};
+
 // 请求列表
 const requestList: string[] = [];
 
