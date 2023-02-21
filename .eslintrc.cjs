@@ -72,5 +72,6 @@ module.exports = {
     'no-param-reassign': 0,
     'no-new': 0,
     // "prettier/prettier": "off"
+    "@typescript-eslint/ban-types": ["error", { "extendDefaults": true,"types": { "Function": false } }]
   },
 };
