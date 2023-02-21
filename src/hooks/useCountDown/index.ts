@@ -4,7 +4,7 @@ interface State {
   initCount: number;
 }
 
-export default function useCountDown(initCount = 60, callback?: () => void): [number, () => void] {
+export default function useCountDown(initCount = 60, callback?: Function): [number, Function] {
   const state = reactive<State>({
     initCount: initCount,
   });
