@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "eslint --ext .js,.vue,.ts,.jsx --ignore-path .eslintignore --fix src && vite --port=4000",
+    "start": "eslint --ext .js,.vue,.ts,.jsx --ignore-path .eslintignore --fix src && vite --port=4005",
     "release3000": "vue-tsc && vite build",
     "release4000": "vue-tsc && vite build",
     "release5000": "vue-tsc && vite build",
@@ -44,8 +44,10 @@
     "ant-design-vue": "^3.2.15",
     "axios": "^1.2.2",
     "dayjs": "^1.11.7",
+    "md5": "^2.3.0",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
+    "oidc-client": "^1.11.5",
     "qs": "^6.11.0",
     "terser": "^5.16.1",
     "vue": "^3.2.45",
@@ -55,6 +57,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
+    "@types/md5": "^2.3.2",
     "@types/mockjs": "^1.0.7",
     "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^5.48.1",

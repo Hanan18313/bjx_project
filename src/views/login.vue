@@ -1,13 +1,73 @@
 <script lang="ts" setup>
-import router from '@/router';
+import { reactive } from 'vue';
 import { Form, Row, Col, Input, Button, Typography, Divider } from 'ant-design-vue';
+import { getEQP } from '@/config/sign';
+import { sendSms, GtInit } from '@/request/common/login';
+import router from '@/router';
 
 const { Title } = Typography;
+
+const state = reactive({
+  phone: '',
+  verifyCode: '',
+});
 
 const handleLogin = () => {
   router.push({
     path: '/home',
   });
+};
+
+const sendVerifyCode = () => {
+  var handle = (captchaObj: {
+    appendTo: (arg0: string) => void;
+    onReady: (arg0: () => void) => {
+      (): any;
+      new (): any;
+      onSuccess: { (arg0: () => void): void; new (): any };
+    };
+    verify: () => void;
+    getValidate: () => any;
+  }) => {
+    captchaObj.appendTo('#captcha-box');
+    captchaObj
+      .onReady(() => {
+        captchaObj.verify();
+      })
+      .onSuccess(() => {
+        var result = captchaObj.getValidate();
+        if (!result) return alert('请完成验证');
+        const params = {
+          phone: state.phone,
+          challenge: result.geetest_challenge,
+          validate: result.geetest_validate,
+          seccode: result.geetest_seccode,
+        };
+        sendSms(params)
+          .then((res: any) => {
+            console.log(res);
+          })
+          .catch((err: any) => {
+            console.log(err);
+          });
+      });
+  };
+  GtInit()
+    .then((res: any) => {
+      initGeetest(
+        {
+          gt: res.Gt,
+          challenge: res.Challenge,
+          offline: !res.Success,
+          new_captcha: res.New_Captcha,
+          product: 'bind',
+        },
+        handle,
+      );
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 </script>
 <template>
@@ -33,7 +93,7 @@ const handleLogin = () => {
                 <Input placeholder="请输入验证码" size="large" :maxlength="4" />
                 <div class="send-code-button">
                   <Divider type="vertical" />
-                  <Button type="link">发送验证码</Button>
+                  <Button type="link" @click="sendVerifyCode">发送验证码</Button>
                 </div>
               </Form.Item>
             </Col>

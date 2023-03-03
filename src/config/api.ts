@@ -7,6 +7,10 @@ interface Env {
 interface IApi {
   EDUAPI: string;
   HRCOMMONAPI: string;
+  HR_USER_BASEURL: string;
+  PASSPORTAPI: string;
+  PASSPORTAPISCOPE: string;
+  PASSPORTAPICLIENTID: string;
 }
 
 const NODE_ENV: string = process.env || 'start';
@@ -32,6 +36,8 @@ const MULTI_ENV: Env = {
 const ENV: Env = {
   start: {
     HRCOMMONAPI: 'https://common1.bjx.com.cn', //北极星人才通用接口API
+    HR_USER_BASEURL: 'http://192.168.4.248:11210',
+    PASSPORTAPI: 'https://dev-passport.mybjx.net', //北极星用户中心API
     ...SECRET_KEYS,
   },
   build: {
