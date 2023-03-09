@@ -39,10 +39,5 @@ export const getToken = async (params: any): Promise<any> => {
   return await Axios.get(
     EDUAPI +
       `/api/v1/User/GetChannelTokne?phone=${params.phone}&code=${params.code}&EQP=${params.eqp}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
   );
 };
