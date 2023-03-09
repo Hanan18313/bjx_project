@@ -17,12 +17,20 @@ export const guid = () => {
 };
 //获取设备ID
 export const getEQP = () => {
-  let _guid = window.localStorage.getItem('EQP');
-  if (!_guid) {
-    _guid = guid().toString();
-    window.localStorage.setItem('EQP', _guid);
+  // let _guid = window.localStorage.getItem('EQP');
+  // if (!_guid) {
+  //   _guid = guid().toString();
+  //   window.localStorage.setItem('EQP', _guid);
+  // }
+  // return _guid;
+  let EQP = window.localStorage.getItem('EQP');
+  if (!EQP) {
+    try {
+      EQP = window['x-app-token'].split('-')[6] || '121212121212';
+      window.localStorage.setItem('EQP', EQP);
+    } catch {}
   }
-  return _guid;
+  return EQP;
 };
 //延迟5分钟
 function getTs() {

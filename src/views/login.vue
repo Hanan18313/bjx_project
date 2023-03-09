@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { reactive } from 'vue';
-import { Form, Row, Col, Input, Button, Typography, Divider } from 'ant-design-vue';
-import { getEQP } from '@/config/sign';
-import { sendSms, GtInit } from '@/request/common/login';
+import { Form, Row, Col, Input, Button, Typography, Divider, message } from 'ant-design-vue';
+import { sendSms, GtInit, getToken } from '@/request/common/login';
+import { getEQP } from '@/service/sign';
+import { APP_TOKEN_KEY } from '@/utils/axios';
+import storage from '@/utils/storage';
 import router from '@/router';
 
 const { Title } = Typography;
@@ -12,12 +14,28 @@ const state = reactive({
   verifyCode: '',
 });
 
-const handleLogin = () => {
-  router.push({
-    path: '/home',
+const fetchToken = async () => {
+  const res = await getToken({
+    phone: state.phone,
+    code: state.verifyCode,
+    eqp: getEQP(),
   });
+  if (res.HttpStatusCode == 200 || res.HttpStatusCode == 215) {
+    message.success('登陆成功');
+    storage.set(APP_TOKEN_KEY, res.Data.tokenType + ' ' + res.Data.accessToken);
+    router.replace({
+      path: '/home',
+    });
+  } else {
+    message.error(res.Error);
+  }
 };
 
+const handleLogin = () => {
+  fetchToken();
+};
+
+// 极验
 const sendVerifyCode = () => {
   var handle = (captchaObj: {
     appendTo: (arg0: string) => void;
@@ -43,6 +61,7 @@ const sendVerifyCode = () => {
           validate: result.geetest_validate,
           seccode: result.geetest_seccode,
         };
+        console.log(params);
         sendSms(params)
           .then((res: any) => {
             console.log(res);
@@ -56,10 +75,10 @@ const sendVerifyCode = () => {
     .then((res: any) => {
       initGeetest(
         {
-          gt: res.Gt,
-          challenge: res.Challenge,
-          offline: !res.Success,
-          new_captcha: res.New_Captcha,
+          gt: res.Data.Gt,
+          challenge: res.Data.Challenge,
+          offline: !res.Data.Success,
+          new_captcha: res.Data.New_Captcha,
           product: 'bind',
         },
         handle,
@@ -81,16 +100,26 @@ const sendVerifyCode = () => {
         <Typography>
           <Title :level="2" style="color: #aaa; text-align: center">北极星学社管理后台</Title>
         </Typography>
-        <Form>
+        <Form :model="state">
           <Row>
             <Col span="24">
               <Form.Item label="" name="phone">
-                <Input placeholder="请输入手机号" size="large" :maxlength="11" />
+                <Input
+                  v-model:value="state.phone"
+                  placeholder="请输入手机号"
+                  size="large"
+                  :maxlength="11"
+                />
               </Form.Item>
             </Col>
             <Col span="24">
               <Form.Item label="" name="verifyCode" class="send-code-item">
-                <Input placeholder="请输入验证码" size="large" :maxlength="4" />
+                <Input
+                  v-model:value="state.verifyCode"
+                  placeholder="请输入验证码"
+                  size="large"
+                  :maxlength="4"
+                />
                 <div class="send-code-button">
                   <Divider type="vertical" />
                   <Button type="link" @click="sendVerifyCode">发送验证码</Button>

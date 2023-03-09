@@ -10,7 +10,7 @@ mockjs.XHR.prototype.send = function () {
 };
 
 mockjs.mock(/\/menu/, {
-  code: 200,
+  HttpStatusCode: 200,
   data: [
     {
       name: '首页',

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "eslint --ext .js,.vue,.ts,.jsx --ignore-path .eslintignore --fix src && vite --port=4005",
+    "start": "eslint --ext .js,.vue,.ts,.jsx --ignore-path .eslintignore --fix src && vite",
     "release3000": "vue-tsc && vite build",
     "release4000": "vue-tsc && vite build",
     "release5000": "vue-tsc && vite build",

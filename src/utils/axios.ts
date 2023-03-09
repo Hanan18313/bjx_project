@@ -4,11 +4,10 @@ import qs from 'qs';
 import router from '@/router';
 import storage from './storage';
 import { deleteSearchFormUndef } from './method';
-import { guid } from '@/config/sign';
 
 const { CancelToken } = axios;
 
-const APP_TOKEN_KEY = 'APP_TOKEN_KEY';
+export const APP_TOKEN_KEY = 'APP_TOKEN_KEY';
 
 export interface Env {
   [key: string]: string;
@@ -45,7 +44,11 @@ const requestList: string[] = [];
 // 允许重复请求列表
 const agreeRequestAgain: string[] = [];
 // 不需要token的url
-const notNeedTokenUrlList: string[] = ['/menu', '/api/Geetest/GetSign', '/api/Sms/SendWithSign'];
+const notNeedTokenUrlList: string[] = [
+  '/api/Geetest/GetSign',
+  '/api/Sms/SendWithSign',
+  '/api/v1/User/GetChannelTokne',
+];
 // 取消网络超时时间
 const agreeTimeOut: string[] = [];
 
@@ -57,7 +60,6 @@ const requestConfig = (config: Config): Config => {
   } else {
     newConfig.data = deleteSearchFormUndef(config.data);
   }
-
   if (config.data && config.data._JSONTYPE_ === 'json') {
     newConfig.headers!['Content-Type'] = 'application/json;charset=utf-8';
     delete newConfig.data._JSONTYPE_;
@@ -72,23 +74,25 @@ const requestConfig = (config: Config): Config => {
     sources[request] = cancel;
   });
 
+  let isNotNeedTokenUrl = false;
+  notNeedTokenUrlList.forEach(url => {
+    if (config.url?.includes(url)) {
+      isNotNeedTokenUrl = true;
+    }
+  });
+
   if (requestList.includes(request)) {
     if (!agreeRequestAgain.includes(config.url as string)) {
       console.error(`提示：${config.url}重复请求，已取消`);
       sources[request]('取消重复请求');
     }
+  } else if (!isNotNeedTokenUrl && !token) {
+    // 在没有token的情况下，取消请求且返回登陆页面
+    router.replace('/login');
+    sources[request]('没有token');
   } else {
     requestList.push(request);
   }
-
-  // else if (!notNeedTokenUrlList.includes(config.url as string) && !token) {
-  //   console.log(config.url)
-  //   // 在没有token的情况下，取消请求且返回登陆页面
-  //   router.replace('/login');
-  //   sources[request]('没有token');
-  // } else {
-  //   requestList.push(request);
-  // }
 
   if (token) {
     newConfig.headers!.Authorization = token;
@@ -119,15 +123,15 @@ const responseConfig = (res: AxiosResponse) => {
   if (!res.data) {
     res.data = {};
   }
-  const { code, success, message: errorInfo } = res.data;
-  // 根据后台返回的code做处理
-  switch (code) {
+  const { HttpStatusCode, IsError, Data, Error } = res.data;
+  // 根据后台返回的HttpStatusCode做处理
+  switch (HttpStatusCode) {
     case '200':
     case 200: // 成功
-      if (!success) {
-        Toast(errorInfo);
+      if (IsError) {
+        Toast(Error);
       }
-      return success ? res.data : Promise.reject(res.data);
+      return !IsError ? res.data : Promise.reject(res.data);
     case '50001':
     case '50002':
       Toast('登录失效');
@@ -135,10 +139,10 @@ const responseConfig = (res: AxiosResponse) => {
       return Promise.reject();
     case '-1':
     case '500':
-      Toast(res.data.message);
+      Toast(Error);
       return Promise.reject();
     default:
-      Toast(errorInfo);
+      Toast(Error);
       return Promise.reject(res.data);
   }
 };
@@ -194,7 +198,7 @@ export const Axios = axios.create({
   withCredentials: true,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-    'x-app-token': guid(),
+    'x-app-token': window['x-app-token'],
   },
 });
 

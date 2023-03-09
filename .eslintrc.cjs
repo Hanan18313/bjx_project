@@ -49,6 +49,7 @@ module.exports = {
     'eol-last': 'off', // 要求或禁止文件末尾存在空行
     'no-shadow': 'off', // 禁止变量声明与外层作用域的变量同名
     'no-unused-vars': 'warn', // 禁止出现未使用过的变量
+    "@typescript-eslint/no-unused-vars": ["warn", { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }],
     'import/no-cycle': 'off', // 禁止一个模块导入一个有依赖路径的模块回到自己身上
     'arrow-parens': 'off', // 要求箭头函数的参数使用圆括号
     eqeqeq: 'off', // 要求使用 === 和 !==

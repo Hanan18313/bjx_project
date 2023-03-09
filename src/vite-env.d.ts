@@ -1,7 +1,6 @@
 /// <reference types="vite/client" />
-// interface Process {
-//   readonly process: Record<string, any>;
-// }
+
+/** eslint-disable */
 
 // 创建全局变量
 const process: Record<string, any> = {};
