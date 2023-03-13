@@ -1,5 +1,5 @@
 <script lang="ts" setup name="SelectIndex">
-import { defineProps, defineEmits, ref, watch, toRefs, ToRefs, Ref } from 'vue';
+import { defineProps, defineEmits, ref, watch, toRefs, Ref } from 'vue';
 import { Switch } from 'ant-design-vue';
 import type { SwitchProps } from './types';
 
@@ -8,7 +8,7 @@ const emits = defineEmits<{
 }>();
 
 const props = defineProps<SwitchProps>();
-const { inputConfig, options } = toRefs(props);
+const { inputConfig } = toRefs(props);
 const val = ref<string | number | boolean>(props.modelValue);
 
 watch(

@@ -1,4 +1,4 @@
-import { Axios, typeJson, emptyJson } from '@/utils/axios';
+import { Axios, typeJson } from '@/utils/axios';
 import { KeyData } from '@/types/common';
 import { api } from '@/config/api';
 import { getSign, HrSign } from '@/service/sign';
@@ -14,7 +14,7 @@ export const GtInit = () => {
   });
 };
 
-export const sendSms = async (params: any) => {
+export const sendSms = async (params: KeyData) => {
   return await Axios.post(HR_USER_BASEURL + '/api/Sms/SendWithSign', {
     ...getSign({
       Phone: params.phone,
@@ -35,7 +35,7 @@ export const sendSms = async (params: any) => {
   });
 };
 
-export const getToken = async (params: any): Promise<any> => {
+export const getToken = async (params: KeyData): Promise<any> => {
   return await Axios.get(
     EDUAPI +
       `/api/v1/User/GetChannelTokne?phone=${params.phone}&code=${params.code}&EQP=${params.eqp}`,

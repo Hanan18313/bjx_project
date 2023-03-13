@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive, toRaw } from 'vue';
 import { Form, Row, Col, Input, Button, Typography, Divider, message } from 'ant-design-vue';
 import { sendSms, GtInit, getToken } from '@/request/common/login';
 import { getEQP } from '@/service/sign';
@@ -9,10 +9,31 @@ import router from '@/router';
 
 const { Title } = Typography;
 
-const state = reactive({
+const useForm = Form.useForm;
+
+interface LoginFormState {
+  phone: string;
+  verifyCode: string;
+}
+
+const state = reactive<LoginFormState>({
   phone: '',
   verifyCode: '',
 });
+
+const rulesRef = reactive({
+  phone: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    {
+      pattern: /^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/,
+      message: '请输入正确的手机号',
+      trigger: 'blur',
+    },
+  ],
+  verifyCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+});
+
+const { resetFields, validate, validateInfos } = useForm(state, rulesRef);
 
 const fetchToken = async () => {
   const res = await getToken({
@@ -32,7 +53,14 @@ const fetchToken = async () => {
 };
 
 const handleLogin = () => {
-  fetchToken();
+  validate()
+    .then(() => {
+      console.log(toRaw(state));
+      fetchToken();
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
 // 极验
@@ -71,18 +99,24 @@ const sendVerifyCode = () => {
           });
       });
   };
-  GtInit()
-    .then((res: any) => {
-      initGeetest(
-        {
-          gt: res.Data.Gt,
-          challenge: res.Data.Challenge,
-          offline: !res.Data.Success,
-          new_captcha: res.Data.New_Captcha,
-          product: 'bind',
-        },
-        handle,
-      );
+  validate(['phone'])
+    .then(() => {
+      GtInit()
+        .then((res: any) => {
+          initGeetest(
+            {
+              gt: res.Data.Gt,
+              challenge: res.Data.Challenge,
+              offline: !res.Data.Success,
+              new_captcha: res.Data.New_Captcha,
+              product: 'bind',
+            },
+            handle,
+          );
+        })
+        .catch(err => {
+          console.log(err);
+        });
     })
     .catch(err => {
       console.log(err);
@@ -103,7 +137,7 @@ const sendVerifyCode = () => {
         <Form :model="state">
           <Row>
             <Col span="24">
-              <Form.Item label="" name="phone">
+              <Form.Item label="" name="phone" v-bind="validateInfos.phone">
                 <Input
                   v-model:value="state.phone"
                   placeholder="请输入手机号"
@@ -113,7 +147,12 @@ const sendVerifyCode = () => {
               </Form.Item>
             </Col>
             <Col span="24">
-              <Form.Item label="" name="verifyCode" class="send-code-item">
+              <Form.Item
+                label=""
+                name="verifyCode"
+                class="send-code-item"
+                v-bind="validateInfos.verifyCode"
+              >
                 <Input
                   v-model:value="state.verifyCode"
                   placeholder="请输入验证码"

@@ -123,7 +123,7 @@ const responseConfig = (res: AxiosResponse) => {
   if (!res.data) {
     res.data = {};
   }
-  const { HttpStatusCode, IsError, Data, Error } = res.data;
+  const { HttpStatusCode, IsError, Error } = res.data;
   // 根据后台返回的HttpStatusCode做处理
   switch (HttpStatusCode) {
     case '200':

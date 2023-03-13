@@ -1,4 +1,4 @@
-import { OptionsKeys, KeyParams } from '../types';
+import { KeyParams } from '../types';
 
 export interface SwitchProps {
   modelValue: string | number | boolean;
