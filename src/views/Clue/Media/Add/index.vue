@@ -123,12 +123,7 @@ const handleReset = (formEl: FormEl | undefined) => {
 };
 </script>
 <template>
-  <FormComponent
-    ref="baseForm"
-    :form-columns="formColumns"
-    :form-data="state"
-    :form-rules="formRules"
-  >
+  <FormComponent ref="baseForm" :columns="formColumns" :data="state" :rules="formRules">
     <template #Actions>
       <Col :span="14" :offset="10">
         <Form.Item>

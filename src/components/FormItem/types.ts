@@ -24,7 +24,7 @@ export interface PropsParams {
 }
 
 export interface FormProps {
-  formColumns: PropsParams[];
-  formData: KeyParams;
-  formRules?: KeyParams;
+  columns: PropsParams[];
+  data: KeyParams;
+  rules?: KeyParams;
 }

@@ -14,7 +14,7 @@ import Upload from '../Upload/index.vue';
 import type { FormProps } from './types';
 
 const props = defineProps<FormProps>();
-const { formColumns, formData, formRules } = toRefs(props);
+const { columns, data, rules } = toRefs(props);
 
 const componentsType: Record<string, any> = markRaw({
   Input,
@@ -37,12 +37,12 @@ defineExpose({ formRef });
     ref="formRef"
     :label-col="{ span: 4 }"
     :wrapper-col="{ offset: 0 }"
-    :model="formData"
+    :model="data"
     v-bind="$attrs"
-    :rules="formRules"
+    :rules="rules"
   >
     <Row style="text-align: start">
-      <template v-for="column in formColumns" :key="column.name">
+      <template v-for="column in columns" :key="column.name">
         <!-- <template v-if="column.slotName">
           <slot :name="column.slotName"></slot>
         </template> -->
@@ -50,7 +50,7 @@ defineExpose({ formRef });
           <Form.Item :label="column.label" :name="column.name">
             <component
               :is="componentsType[column.type!!]"
-              v-model="formData[column.name]"
+              v-model="data[column.name]"
               v-bind="column"
             ></component>
           </Form.Item>
