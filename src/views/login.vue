@@ -172,8 +172,8 @@ const sendVerifyCode = () => {
                     :disabled="count !== 10 && count !== 0"
                     @click="sendVerifyCode"
                   >
-                    发送验证码{{ count == 10 || count == 0 ? '' : '(' + count + 's)' }}</Button
-                  >
+                    发送验证码{{ count == 10 || count == 0 ? '' : '(' + count + 's)' }}
+                  </Button>
                 </div>
               </Form.Item>
             </Col>
