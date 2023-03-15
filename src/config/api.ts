@@ -42,6 +42,7 @@ const ENV: Env = {
   },
   build: {
     HRCOMMONAPI: 'https://common1.bjx.com.cn', //北极星人才通用接口API
+    PASSPORTAPI: 'https://passport.bjx.com.cn', //北极星用户中心API授权中心
     ...SECRET_KEYS,
   },
 };
