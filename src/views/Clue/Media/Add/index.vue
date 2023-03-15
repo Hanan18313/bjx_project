@@ -21,6 +21,8 @@ interface Option {
 
 const baseForm = ref<FormEl>();
 
+// const useForm = Form.useForm;
+
 const state = reactive<State>({
   name: '',
   gender: '',
@@ -106,6 +108,9 @@ const formColumns: PropsParams[] = [
     },
   },
 ];
+
+// const { resetFields, validate, validateInfos } = useForm(state, formRules);
+// console.log(validateInfos);
 
 const handleSubmit = (formEl: FormEl | undefined) => {
   formEl?.formRef

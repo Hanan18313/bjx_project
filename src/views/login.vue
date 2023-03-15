@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { reactive, toRaw } from 'vue';
+import { reactive, toRaw, ref, computed } from 'vue';
 import { Form, Row, Col, Input, Button, Typography, Divider, message } from 'ant-design-vue';
 import { sendSms, GtInit, getToken } from '@/request/common/login';
 import { getEQP } from '@/service/sign';
+import { useCountDown } from '@/hooks/index';
 import { APP_TOKEN_KEY } from '@/utils/axios';
 import storage from '@/utils/storage';
 import router from '@/router';
@@ -14,11 +15,15 @@ const useForm = Form.useForm;
 interface LoginFormState {
   phone: string;
   verifyCode: string;
+  disabled: boolean;
 }
+
+const [count, start] = useCountDown();
 
 const state = reactive<LoginFormState>({
   phone: '',
   verifyCode: '',
+  disabled: false,
 });
 
 const rulesRef = reactive({
@@ -33,7 +38,7 @@ const rulesRef = reactive({
   verifyCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 });
 
-const { resetFields, validate, validateInfos } = useForm(state, rulesRef);
+const { validate, validateInfos } = useForm(state, rulesRef);
 
 const fetchToken = async () => {
   const res = await getToken({
@@ -89,12 +94,13 @@ const sendVerifyCode = () => {
           validate: result.geetest_validate,
           seccode: result.geetest_seccode,
         };
-        console.log(params);
         sendSms(params)
           .then((res: any) => {
+            start();
             console.log(res);
           })
           .catch((err: any) => {
+            start();
             console.log(err);
           });
       });
@@ -161,7 +167,13 @@ const sendVerifyCode = () => {
                 />
                 <div class="send-code-button">
                   <Divider type="vertical" />
-                  <Button type="link" @click="sendVerifyCode">发送验证码</Button>
+                  <Button
+                    type="link"
+                    :disabled="count !== 10 && count !== 0"
+                    @click="sendVerifyCode"
+                  >
+                    发送验证码{{ count == 10 || count == 0 ? '' : '(' + count + 's)' }}</Button
+                  >
                 </div>
               </Form.Item>
             </Col>
@@ -169,9 +181,6 @@ const sendVerifyCode = () => {
               <Form.Item>
                 <Button type="primary" size="large" block @click="handleLogin">登录</Button>
               </Form.Item>
-            </Col>
-            <Col span="24">
-              <Form.Item> 暂不需要输入手机号和验证码直接登录 </Form.Item>
             </Col>
           </Row>
         </Form>
@@ -193,11 +202,13 @@ const sendVerifyCode = () => {
   left: 50%;
   transform: translate(-50%, -50%);
   background: #fafafa;
+
   .left-pannel {
     height: 400px;
     width: 260px;
     background: #333131;
   }
+
   .right-pannel {
     flex: 1;
     margin: 60px 60px 40px 60px;

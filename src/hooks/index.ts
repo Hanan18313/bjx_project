@@ -1,3 +1,5 @@
 import useCountDown from './useCountDown';
+import useRouteQuery from './useRouteQuery';
+import useInterval from './useInterval';
 
-export { useCountDown };
+export { useCountDown, useRouteQuery, useInterval };

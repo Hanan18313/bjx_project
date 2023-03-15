@@ -18,3 +18,25 @@ export const deleteSearchFormUndef = (searchForm: KeyData): Record<string, any> 
   }
   return {};
 };
+
+export const debounce = (fn: Function, delay: number) => {
+  let timer: NodeJs.Timer | null = null;
+  return (...args: []) => {
+    if (timer) clearInterval(timer);
+    timer = setTimeout(() => {
+      fn.call(this, ...args);
+    }, delay);
+  };
+};
+
+export const throttle = (fn: Function, delay: number) => {
+  let valid = true;
+  return (...agrs: []) => {
+    if (!valid) return false;
+    valid = false;
+    setTimeout(() => {
+      fn.call(this, ...agrs);
+      valid = true;
+    }, delay);
+  };
+};

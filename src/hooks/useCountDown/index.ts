@@ -1,33 +1,33 @@
-import { onMounted, onUnmounted, reactive, ref } from 'vue';
+import { onUnmounted, ref, watch, Ref } from 'vue';
+import { useInterval } from '../index';
 
-interface State {
-  initCount: number;
-}
+type Counter = number;
 
-export default function useCountDown(initCount = 60, callback?: Function): [number, Function] {
-  const state = reactive<State>({
-    initCount: initCount,
-  });
+export default function useCountDown(initCount = 10, callback?: Function): [Ref<number>, Function] {
+  const counter = ref<Counter>(initCount);
+  const delay = ref<number | undefined | null>(1000);
 
-  const timer = ref<any>(null);
+  let timer: NodeJs.Timer | null = null;
 
   const start = () => {
-    state.initCount = initCount;
-    timer.value = setInterval(() => {
-      state.initCount--;
-    }, 1000);
+    timer = useInterval(() => {
+      counter.value--;
+    }, delay);
   };
 
-  onMounted(() => {
-    if (state.initCount === 0) {
-      callback!();
-      clearInterval(timer);
-    }
-  });
+  watch(
+    () => counter.value,
+    () => {
+      if (counter.value === 0) {
+        delay.value = null;
+        callback && callback();
+      }
+    },
+  );
 
   onUnmounted(() => {
     clearInterval(timer);
   });
 
-  return [state.initCount, start];
+  return [counter, start];
 }

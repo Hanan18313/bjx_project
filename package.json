@@ -41,6 +41,7 @@
     "@icon-park/vue-next": "^1.4.2",
     "@types/node": "^18.11.18",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
+    "@vueuse/core": "^9.13.0",
     "ant-design-vue": "^3.2.15",
     "axios": "^1.2.2",
     "dayjs": "^1.11.7",
