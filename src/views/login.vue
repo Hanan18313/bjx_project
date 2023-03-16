@@ -3,7 +3,7 @@ import { reactive, toRaw, ref, computed } from 'vue';
 import { Form, Row, Col, Input, Button, Typography, Divider, message } from 'ant-design-vue';
 import { sendSms, GtInit, getToken } from '@/request/common/login';
 import { getEQP } from '@/service/sign';
-import { useCountDown } from '@/hooks/index';
+import { useCountDown } from '@/hooks';
 import { APP_TOKEN_KEY } from '@/utils/axios';
 import storage from '@/utils/storage';
 import router from '@/router';
