@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang="ts" setup name="404">
 import router from '@/router';
 import { Result, Button } from 'ant-design-vue';
 const handleBackHome = () => {
