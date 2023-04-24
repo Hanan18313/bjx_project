@@ -106,8 +106,8 @@ const requestConfig = (config: Config): Config => {
 
 // 请求拦截出错配置
 const requestError = (error: any) => {
-  Toast(error.data.msg.trim() || error.trim() || '未知错误');
-  return Promise.reject(error.data.msg || '');
+  Toast(error.data.Error.trim() || error.trim() || '未知错误');
+  return Promise.reject(error.data.Error || '');
 };
 
 // 响应拦截器通常配置
